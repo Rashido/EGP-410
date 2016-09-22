@@ -1,0 +1,36 @@
+﻿Build started 9/22/2016 2:08:48 PM.
+     1>Project "C:\Users\Gabriel\Documents\USB Backup\Game AI\EGP-410-master\GameAI\steering\water.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\DeanLib /I"..\..\External Libs\Allegro5\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt InputManager.cpp
+         InputManager.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Gabriel\Documents\USB Backup\Game AI\EGP-410-master\GameAI\steering\Debug\steering.exe" /INCREMENTAL /NOLOGO /LIBPATH:"..\..\External libs\Allegro5\lib" /LIBPATH:..\..\DeanLib\debug kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "allegro-5.0.10-monolith-md-debug.lib" DeanLib.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Gabriel\Documents\USB Backup\Game AI\EGP-410-master\GameAI\steering\Debug\steering.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Gabriel\Documents\USB Backup\Game AI\EGP-410-master\GameAI\steering\Debug\steering.lib" /MACHINE:X86 /SAFESEH Debug\AddDynamicArriveAIMessage.obj
+         Debug\AddDynamicSeekAIMessage.obj
+         Debug\DeleteRandomAIMessage.obj
+         Debug\DynamicArriveSteering.obj
+         Debug\DynamicSeekSteering.obj
+         Debug\ExitGameMessage.obj
+         Debug\Game.obj
+         Debug\GameMessage.obj
+         Debug\GameMessageManager.obj
+         Debug\GraphicsBuffer.obj
+         Debug\GraphicsBufferManager.obj
+         Debug\GraphicsSystem.obj
+         Debug\InputManager.obj
+         Debug\Kinematic.obj
+         Debug\KinematicArriveSteering.obj
+         Debug\KinematicSeekSteering.obj
+         Debug\KinematicUnit.obj
+         Debug\KinematicWanderSteering.obj
+         Debug\main.obj
+         Debug\PlayerMoveToMessage.obj
+         Debug\Sprite.obj
+         Debug\SpriteManager.obj
+         Debug\Steering.obj
+         Debug\UnitManager.obj
+         water.vcxproj -> C:\Users\Gabriel\Documents\USB Backup\Game AI\EGP-410-master\GameAI\steering\Debug\steering.exe
+     1>Done Building Project "C:\Users\Gabriel\Documents\USB Backup\Game AI\EGP-410-master\GameAI\steering\water.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.73

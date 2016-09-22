@@ -15,10 +15,11 @@
 #include "GraphicsBuffer.h"
 #include "GraphicsBufferManager.h"
 #include "GameMessageManager.h"
+#include "InputManager.h"
+#include "UnitManager.h"
 #include "Sprite.h"
 #include "SpriteManager.h"
 #include "Timer.h"
-#include "KinematicUnit.h"
 #include "PlayerMoveToMessage.h"
 
 Game* gpGame = NULL;
@@ -30,6 +31,7 @@ Game::Game()
 	:mpGraphicsSystem(NULL)
 	,mpGraphicsBufferManager(NULL)
 	,mpSpriteManager(NULL)
+	, mpInputManager(NULL)
 	,mpLoopTimer(NULL)
 	,mpMasterTimer(NULL)
 	,mShouldExit(false)
@@ -72,6 +74,11 @@ bool Game::init()
 	mpGraphicsBufferManager = new GraphicsBufferManager();
 	mpSpriteManager = new SpriteManager();
 
+	mpInputManager = new InputManager();
+	mpInputManager->init();
+
+	mpUnitManager = new UnitManager();
+
 	//startup a lot of allegro stuff
 
 	//load image loader addon
@@ -97,20 +104,6 @@ bool Game::init()
 	if (!al_reserve_samples(1))
 	{
 		fprintf(stderr, "failed to reserve samples!\n");
-		return false;
-	}
-
-	//should probably be done in the InputSystem!
-	if( !al_install_keyboard() )
-	{
-		printf( "Keyboard not installed!\n" ); 
-		return false;
-	}
-
-	//should probably be done in the InputSystem!
-	if( !al_install_mouse() )
-	{
-		printf( "Mouse not installed!\n" ); 
 		return false;
 	}
 
@@ -180,31 +173,25 @@ bool Game::init()
 	//setup units
 	Vector2D pos( 0.0f, 0.0f );
 	Vector2D vel( 0.0f, 0.0f );
-	mpUnit = new KinematicUnit( pArrowSprite, pos, 1, vel, 0.0f, 200.0f, 10.0f );
+	mpUnitManager->addUnit(pArrowSprite, pos, vel, 200.0f, 10.0f, "player");
 	
 	Vector2D pos2( 1000.0f, 500.0f );
 	Vector2D vel2( 0.0f, 0.0f );
-	mpAIUnit = new KinematicUnit( pEnemyArrow, pos2, 1, vel2, 0.0f, 180.0f, 100.0f );
-	//give steering behavior
-	mpAIUnit->dynamicArrive( mpUnit ); 
+	mpUnitManager->addUnit(pEnemyArrow, pos2, vel2, 180.0f, 100.0f, "ai1");
+	mpUnitManager->setUnitBehavior(DYNAMIC_ARRIVE, "ai1", "player");
 
 	Vector2D pos3( 500.0f, 500.0f );
-	mpAIUnit2 = new KinematicUnit( pEnemyArrow, pos3, 1, vel2, 0.0f, 180.0f, 100.0f );
-	//give steering behavior
-	mpAIUnit2->dynamicSeek( mpUnit );  
+	mpUnitManager->addUnit(pEnemyArrow, pos3, vel2, 180.0f, 100.0f, "ai2");
+	mpUnitManager->setUnitBehavior(DYNAMIC_SEEK, "ai2", "player");
 
 	return true;
 }
 
 void Game::cleanup()
-{
+{	
 	//delete units
-	delete mpUnit;
-	mpUnit = NULL;
-	delete mpAIUnit;
-	mpAIUnit = NULL;
-	delete mpAIUnit2;
-	mpAIUnit2 = NULL;
+	delete mpUnitManager;
+	mpUnitManager = NULL;
 
 	//delete the timers
 	delete mpLoopTimer;
@@ -222,6 +209,9 @@ void Game::cleanup()
 	mpSpriteManager = NULL;
 	delete mpMessageManager;
 	mpMessageManager = NULL;
+
+	delete mpInputManager;
+	mpInputManager = NULL;
 
 	al_destroy_sample(mpSample);
 	mpSample = NULL;
@@ -247,59 +237,19 @@ void Game::beginLoop()
 void Game::processLoop()
 {
 	//update units
-	mpUnit->update( LOOP_TARGET_TIME/1000.0f );
-	mpAIUnit->update( LOOP_TARGET_TIME/1000.0f );
-	mpAIUnit2->update( LOOP_TARGET_TIME/1000.0f );
+	mpUnitManager->update(LOOP_TARGET_TIME / 1000.0f);
 	
 	//draw background
 	Sprite* pBackgroundSprite = mpSpriteManager->getSprite( BACKGROUND_SPRITE_ID );
 	pBackgroundSprite->draw( *(mpGraphicsSystem->getBackBuffer()), 0, 0 );
 
 	//draw units
-	mpUnit->draw( GRAPHICS_SYSTEM->getBackBuffer() );
-	mpAIUnit->draw( GRAPHICS_SYSTEM->getBackBuffer() );
-	mpAIUnit2->draw( GRAPHICS_SYSTEM->getBackBuffer() );
+	mpUnitManager->draw();
 
 	mpMessageManager->processMessagesForThisframe();
 
-	//get input - should be moved someplace better
-	ALLEGRO_MOUSE_STATE mouseState;
-	al_get_mouse_state( &mouseState );
-
-	if( al_mouse_button_down( &mouseState, 1 ) )//left mouse click
-	{
-		Vector2D pos( mouseState.x, mouseState.y );
-		GameMessage* pMessage = new PlayerMoveToMessage( pos );
-		MESSAGE_MANAGER->addMessage( pMessage, 0 );
-	}
-
-
-
-	//all this should be moved to InputManager!!!
-	{
-		//get mouse state
-		ALLEGRO_MOUSE_STATE mouseState;
-		al_get_mouse_state( &mouseState );
-
-		//create mouse text
-		stringstream mousePos;
-		mousePos << mouseState.x << ":" << mouseState.y;
-
-		//write text at mouse position
-		al_draw_text( mpFont, al_map_rgb( 255, 255, 255 ), mouseState.x, mouseState.y, ALLEGRO_ALIGN_CENTRE, mousePos.str().c_str() );
-
-		mpGraphicsSystem->swap();
-
-		//get current keyboard state
-		ALLEGRO_KEYBOARD_STATE keyState;
-		al_get_keyboard_state( &keyState );
-
-		//if escape key was down then exit the loop
-		if( al_key_down( &keyState, ALLEGRO_KEY_ESCAPE ) )
-		{
-			mShouldExit = true;
-		}
-	}
+	//get input
+	mpInputManager->update();
 }
 
 bool Game::endLoop()
