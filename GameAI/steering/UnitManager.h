@@ -12,7 +12,9 @@ class Sprite;
 enum BehaviorType
 {
 	DYNAMIC_ARRIVE,
-	DYNAMIC_SEEK
+	DYNAMIC_SEEK,
+	WANDER_AND_SEEK,
+	WANDER_AND_FLEE
 };
 
 class UnitManager :public Trackable
