@@ -9,6 +9,8 @@
 #include "AddDynamicArriveAIMessage.h"
 #include "AddDynamicSeekAIMessage.h"
 #include "DeleteRandomAIMessage.h"
+#include "AddWanderAndFleeAIMessage.h"
+#include "AddWanderAndSeekAIMessage.h"
 
 #include <sstream>
 
@@ -69,17 +71,17 @@ void InputManager::update()
 				gpGame->getMessageManager()->addMessage(pMessage, 0);
 			}
 
-			if (mEvent.keyboard.keycode == ALLEGRO_KEY_A)
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_F)
 			{
-				//add dynamic arrive ai
-				GameMessage* pMessage = new AddDynamicArriveAIMessage();
+				//add wander and flee ai
+				GameMessage* pMessage = new AddWanderAndFleeAIMessage();
 				gpGame->getMessageManager()->addMessage(pMessage, 0);
 			}
 
 			if (mEvent.keyboard.keycode == ALLEGRO_KEY_S)
 			{
-				//add dynamic seek ai
-				GameMessage* pMessage = new AddDynamicSeekAIMessage();
+				//add wander and seek ai
+				GameMessage* pMessage = new AddWanderAndSeekAIMessage();
 				gpGame->getMessageManager()->addMessage(pMessage, 0);
 			}
 

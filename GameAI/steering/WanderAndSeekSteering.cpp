@@ -2,10 +2,11 @@
 #include "KinematicUnit.h"
 #include "Game.h"
 
-WanderAndSeekSteering::WanderAndSeekSteering(KinematicUnit *pMover, KinematicUnit* pTarget, float targetRadius, bool shouldFlee)
+WanderAndSeekSteering::WanderAndSeekSteering(KinematicUnit *pMover, KinematicUnit* pTarget, bool shouldFlee, float targetRadius)
 :mpMover(pMover)
 , mpTarget(pTarget)
 , mShouldFlee(shouldFlee)
+, mTargetRadius(targetRadius)
 {
 	mApplyDirectly = false;
 }
@@ -35,7 +36,7 @@ Steering* WanderAndSeekSteering::getSteering()
 	else //else perform wander behavior
 	{
 		mLinear = mpMover->getOrientationAsVector() * mpMover->getMaxVelocity();
-		mAngular = mpMover->getOrientation() * (genRandomBinomial() * MAX_WANDER_ROTATION);
+		mAngular = mpMover->getOrientation() * (genRandomBinomial() * MAX_WANDER_AND_SEEK_ROTATION);
 		return this;
 	}
 }

@@ -41,6 +41,12 @@ void UnitManager::setUnitBehavior(BehaviorType type, std::string entityID, std::
 		case DYNAMIC_SEEK:
 			mUnitList[entityID]->dynamicSeek(mUnitList[targetID]);
 			break;
+		case WANDER_AND_SEEK:
+			mUnitList[entityID]->wanderAndSeek(mUnitList[targetID]);
+			break;
+		case WANDER_AND_FLEE:
+			mUnitList[entityID]->wanderAndFlee(mUnitList[targetID]);
+			break;
 	}
 }
 

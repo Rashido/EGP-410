@@ -5,12 +5,12 @@
 
 class KinematicUnit;
 
-const float MAX_WANDER_ROTATION = 1.0f;
+const float MAX_WANDER_AND_SEEK_ROTATION = 1.0f;
 
 class WanderAndSeekSteering :public Steering
 {
 public:
-	WanderAndSeekSteering(KinematicUnit* pMove, KinematicUnit* pTarget, float targetRadius = 10.0f, bool shouldFlee = false);
+	WanderAndSeekSteering(KinematicUnit* pMove, KinematicUnit* pTarget, bool shouldFlee = false, float targetRadius = 200.0f);
 	~WanderAndSeekSteering(){};
 
 	void setTarget(KinematicUnit* pTarget){ mpTarget = pTarget; };

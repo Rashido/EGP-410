@@ -175,14 +175,14 @@ bool Game::init()
 	Vector2D vel( 0.0f, 0.0f );
 	mpUnitManager->addUnit(pArrowSprite, pos, vel, 200.0f, 10.0f, "player");
 	
-	Vector2D pos2( 1000.0f, 500.0f );
+	/*Vector2D pos2( 1000.0f, 500.0f );
 	Vector2D vel2( 0.0f, 0.0f );
 	mpUnitManager->addUnit(pEnemyArrow, pos2, vel2, 180.0f, 100.0f, "ai1");
 	mpUnitManager->setUnitBehavior(DYNAMIC_ARRIVE, "ai1", "player");
 
 	Vector2D pos3( 500.0f, 500.0f );
 	mpUnitManager->addUnit(pEnemyArrow, pos3, vel2, 180.0f, 100.0f, "ai2");
-	mpUnitManager->setUnitBehavior(DYNAMIC_SEEK, "ai2", "player");
+	mpUnitManager->setUnitBehavior(DYNAMIC_SEEK, "ai2", "player");*/
 
 	return true;
 }

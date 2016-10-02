@@ -1,38 +1,15 @@
-﻿Build started 9/29/2016 4:11:38 PM.
+﻿Build started 10/2/2016 5:42:07 PM.
      1>Project "C:\Users\Gabriel\Documents\GitHub\EGP-410\GameAI\steering\water.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\DeanLib /I"..\..\External Libs\Allegro5\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt AddDynamicArriveAIMessage.cpp AddDynamicSeekAIMessage.cpp DeleteRandomAIMessage.cpp DynamicArriveSteering.cpp DynamicSeekSteering.cpp ExitGameMessage.cpp Game.cpp GameMessage.cpp GameMessageManager.cpp GraphicsBuffer.cpp GraphicsBufferManager.cpp GraphicsSystem.cpp InputManager.cpp Kinematic.cpp KinematicArriveSteering.cpp KinematicSeekSteering.cpp KinematicUnit.cpp KinematicWanderSteering.cpp main.cpp PlayerMoveToMessage.cpp Sprite.cpp SpriteManager.cpp Steering.cpp UnitManager.cpp WanderAndSeekSteering.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\DeanLib /I"..\..\External Libs\Allegro5\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt StateManager.cpp WanderAndSeekSteering.cpp
          WanderAndSeekSteering.cpp
-         UnitManager.cpp
-         Steering.cpp
-         SpriteManager.cpp
-         Sprite.cpp
-         PlayerMoveToMessage.cpp
-         main.cpp
-         KinematicWanderSteering.cpp
-         KinematicUnit.cpp
-         KinematicSeekSteering.cpp
-         KinematicArriveSteering.cpp
-         Kinematic.cpp
-         InputManager.cpp
-         GraphicsSystem.cpp
-         GraphicsBufferManager.cpp
-         GraphicsBuffer.cpp
-         GameMessageManager.cpp
-         GameMessage.cpp
-         Game.cpp
-         ExitGameMessage.cpp
-         Generating Code...
-         Compiling...
-         DynamicSeekSteering.cpp
-         DynamicArriveSteering.cpp
-         DeleteRandomAIMessage.cpp
-         AddDynamicSeekAIMessage.cpp
-         AddDynamicArriveAIMessage.cpp
+         StateManager.cpp
          Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Gabriel\Documents\GitHub\EGP-410\GameAI\steering\Debug\steering.exe" /INCREMENTAL /NOLOGO /LIBPATH:"..\..\External libs\Allegro5\lib" /LIBPATH:..\..\DeanLib\debug kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "allegro-5.0.10-monolith-md-debug.lib" DeanLib.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Gabriel\Documents\GitHub\EGP-410\GameAI\steering\Debug\steering.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Gabriel\Documents\GitHub\EGP-410\GameAI\steering\Debug\steering.lib" /MACHINE:X86 /SAFESEH Debug\AddDynamicArriveAIMessage.obj
          Debug\AddDynamicSeekAIMessage.obj
+         Debug\AddWanderAndFleeAIMessage.obj
+         Debug\AddWanderAndSeekAIMessage.obj
          Debug\DeleteRandomAIMessage.obj
          Debug\DynamicArriveSteering.obj
          Debug\DynamicSeekSteering.obj
@@ -53,6 +30,7 @@
          Debug\PlayerMoveToMessage.obj
          Debug\Sprite.obj
          Debug\SpriteManager.obj
+         Debug\StateManager.obj
          Debug\Steering.obj
          Debug\UnitManager.obj
          Debug\WanderAndSeekSteering.obj
@@ -62,4 +40,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:21.14
+Time Elapsed 00:00:03.19
