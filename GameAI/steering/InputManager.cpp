@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Vector2D.h"
 #include "GraphicsSystem.h"
+#include "StateManager.h"
 
 #include "GameMessageManager.h"
 #include "PlayerMoveToMessage.h"
@@ -90,6 +91,37 @@ void InputManager::update()
 				//remove random ai unit
 				GameMessage* pMessage = new DeleteRandomAIMessage();
 				gpGame->getMessageManager()->addMessage(pMessage, 0);
+			}
+
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_I)
+			{
+				//toggle state manager
+				gpGame->getStateManager()->toggleActive();
+			}
+
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_V)
+			{
+				gpGame->getStateManager()->setState(VELOCITY);
+			}
+
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_R)
+			{
+				gpGame->getStateManager()->setState(RADIUS);
+			}
+
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_A)
+			{
+				gpGame->getStateManager()->setState(ANGULAR);
+			}
+
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_PAD_PLUS)
+			{
+				gpGame->getStateManager()->addToAnEnemyStat();
+			}
+
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_PAD_MINUS)
+			{
+				gpGame->getStateManager()->subtractFromAnEnemyStat();
 			}
 		}
 	}

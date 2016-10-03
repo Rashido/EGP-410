@@ -22,6 +22,8 @@ public:
 
 	void addToAnEnemyStat();
 	void subtractFromAnEnemyStat();
+	void setState(ManagerState state);
+	inline void toggleActive() { mActive = !mActive; };
 
 private:
 	ManagerState mState;

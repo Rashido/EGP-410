@@ -16,6 +16,7 @@ class UnitManager;
 class GameMessageManager;
 class Timer;
 class InputManager;
+class StateManager;
 
 const IDType BACKGROUND_SPRITE_ID = 0;
 const IDType PLAYER_ICON_SPRITE_ID = 1;
@@ -43,6 +44,7 @@ public:
 	inline GameMessageManager* getMessageManager() const { return mpMessageManager; };
 	inline InputManager* getInputManager() { return mpInputManager; };
 	inline UnitManager* getUnitManager() { return mpUnitManager; };
+	inline StateManager* getStateManager() { return mpStateManager; };
 	inline Timer* getMasterTimer() const { return mpMasterTimer; };
 	inline double getCurrentTime() const { return mpMasterTimer->getElapsedTime(); };
 	inline ALLEGRO_FONT* getFont() const { return mpFont; };
@@ -55,6 +57,7 @@ private:
 	GameMessageManager* mpMessageManager;
 	InputManager* mpInputManager;
 	UnitManager* mpUnitManager;
+	StateManager* mpStateManager;
 	Timer* mpLoopTimer;
 	Timer* mpMasterTimer;
 	bool mShouldExit;

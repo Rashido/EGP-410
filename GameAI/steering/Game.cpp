@@ -17,6 +17,7 @@
 #include "GameMessageManager.h"
 #include "InputManager.h"
 #include "UnitManager.h"
+#include "StateManager.h"
 #include "Sprite.h"
 #include "SpriteManager.h"
 #include "Timer.h"
@@ -44,7 +45,7 @@ Game::Game()
 
 Game::~Game()
 {
-	cleanup();
+
 }
 
 bool Game::init()
@@ -78,6 +79,8 @@ bool Game::init()
 	mpInputManager->init();
 
 	mpUnitManager = new UnitManager();
+
+	mpStateManager = new StateManager();
 
 	//startup a lot of allegro stuff
 
@@ -213,6 +216,9 @@ void Game::cleanup()
 	delete mpInputManager;
 	mpInputManager = NULL;
 
+	delete mpStateManager;
+	mpStateManager = NULL;
+
 	al_destroy_sample(mpSample);
 	mpSample = NULL;
 	al_destroy_font(mpFont);
@@ -247,6 +253,8 @@ void Game::processLoop()
 	mpUnitManager->draw();
 
 	mpMessageManager->processMessagesForThisframe();
+
+	mpStateManager->update();
 
 	//get input
 	mpInputManager->update();
