@@ -3,6 +3,8 @@
 #include "Kinematic.h"
 #include "Steering.h"
 
+#include <memory>
+
 /*KinematicUnit - a unit that is derived from the Kinematic class.  Adds behaviors and max speeds and a current Steering.
 
 Dean Lawson
@@ -23,13 +25,13 @@ const float MIN_VELOCITY_TO_TURN_SQUARED = 1.0f;
 class KinematicUnit: public Kinematic
 {
 public:
-	KinematicUnit( Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, float maxVelocity = 1.0f, float maxAcceleration = 1.0f );
+	KinematicUnit( Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::shared_ptr<float> maxVelocity, float maxAcceleration = 1.0f );
 	~KinematicUnit();
 
 	//getters and setters
 	void setTarget( const Vector2D& target ) { mTarget = target; };
 	const Vector2D& getPosition() const { return mPosition; };
-	float getMaxVelocity() const { return mMaxVelocity; };
+	float getMaxVelocity() const { return *mMaxVelocity; };
 	Vector2D getVelocity() const { return mVelocity; };
 	float getMaxAcceleration() const { return mMaxAcceleration; };
 	void setVelocity( const Vector2D& velocity ){ mVelocity = velocity; };
@@ -55,8 +57,10 @@ private:
 	Sprite* mpSprite;
 	Steering* mpCurrentSteering;
 	Vector2D mTarget;//used only for Kinematic seek and arrive
-	float mMaxVelocity;
+	//float mMaxVelocity;
 	float mMaxAcceleration;
+	std::shared_ptr<float> mMaxVelocity;
+	//std::shared_ptr<float> mMaxRotionalVelocity;
 
 	void setSteering( Steering* pSteering );
 

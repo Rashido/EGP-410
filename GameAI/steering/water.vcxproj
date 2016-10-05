@@ -26,6 +26,7 @@
     <ClInclude Include="GraphicsBuffer.h" />
     <ClInclude Include="GraphicsBufferManager.h" />
     <ClInclude Include="GraphicsSystem.h" />
+    <ClInclude Include="Hitbox.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Kinematic.h" />
     <ClInclude Include="KinematicArriveSteering.h" />
@@ -38,6 +39,8 @@
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="Steering.h" />
     <ClInclude Include="UnitManager.h" />
+    <ClInclude Include="Wall.h" />
+    <ClInclude Include="WallManager.h" />
     <ClInclude Include="WanderAndSeekSteering.h" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +58,7 @@
     <ClCompile Include="GraphicsBuffer.cpp" />
     <ClCompile Include="GraphicsBufferManager.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
+    <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Kinematic.cpp" />
     <ClCompile Include="KinematicArriveSteering.cpp" />
@@ -68,6 +72,8 @@
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Steering.cpp" />
     <ClCompile Include="UnitManager.cpp" />
+    <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="WallManager.cpp" />
     <ClCompile Include="WanderAndSeekSteering.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

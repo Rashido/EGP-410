@@ -9,6 +9,7 @@
 #include <allegro5/allegro_primitives.h>
 
 #include <sstream>
+#include <memory>
 
 #include "Game.h"
 #include "GraphicsSystem.h"
@@ -18,6 +19,7 @@
 #include "InputManager.h"
 #include "UnitManager.h"
 #include "StateManager.h"
+#include "WallManager.h"
 #include "Sprite.h"
 #include "SpriteManager.h"
 #include "Timer.h"
@@ -81,6 +83,9 @@ bool Game::init()
 	mpUnitManager = new UnitManager();
 
 	mpStateManager = new StateManager();
+
+	mpWallManager = new WallManager();
+	mpWallManager->init();
 
 	//startup a lot of allegro stuff
 
@@ -174,9 +179,9 @@ bool Game::init()
 	}
 
 	//setup units
-	Vector2D pos( 0.0f, 0.0f );
+	Vector2D pos( 100.0f, 100.0f );
 	Vector2D vel( 0.0f, 0.0f );
-	mpUnitManager->addUnit(pArrowSprite, pos, vel, 200.0f, 10.0f, "player");
+	mpUnitManager->addUnit(pArrowSprite, pos, vel, std::shared_ptr<float>(new float(200.0f)), 10.0f, "player");
 	
 	/*Vector2D pos2( 1000.0f, 500.0f );
 	Vector2D vel2( 0.0f, 0.0f );
@@ -219,6 +224,9 @@ void Game::cleanup()
 	delete mpStateManager;
 	mpStateManager = NULL;
 
+	delete mpWallManager;
+	mpWallManager = NULL;
+
 	al_destroy_sample(mpSample);
 	mpSample = NULL;
 	al_destroy_font(mpFont);
@@ -251,6 +259,8 @@ void Game::processLoop()
 
 	//draw units
 	mpUnitManager->draw();
+
+	mpWallManager->update();
 
 	mpMessageManager->processMessagesForThisframe();
 

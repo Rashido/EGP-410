@@ -19,7 +19,7 @@ UnitManager::~UnitManager()
 	cleanUp();
 }
 
-void UnitManager::addUnit(Sprite* sprite, Vector2D& pos, Vector2D& vel, float maxVel, float maxAcc,  std::string id)
+void UnitManager::addUnit(Sprite* sprite, Vector2D& pos, Vector2D& vel, std::shared_ptr<float> maxVel, float maxAcc,  std::string id)
 {
 	mUnitList.emplace(id, new KinematicUnit(sprite, pos, 1, vel, 0.0f, maxVel, maxAcc));
 	mUnitCount++;

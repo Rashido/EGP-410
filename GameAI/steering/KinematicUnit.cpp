@@ -15,7 +15,7 @@ using namespace std;
 
 Steering gNullSteering( gZeroVector2D, 0.0f );
 
-KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel, float maxVelocity, float maxAcceleration)
+KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel, std::shared_ptr<float> maxVelocity, float maxAcceleration)
 :Kinematic( position, orientation, velocity, rotationVel )
 ,mpSprite(pSprite)
 ,mpCurrentSteering(NULL)
@@ -63,7 +63,7 @@ void KinematicUnit::update(float time)
 	//move the unit using current velocities
 	Kinematic::update( time );
 	//calculate new velocities
-	calcNewVelocities( *steering, time, mMaxVelocity, 25.0f );
+	calcNewVelocities( *steering, time, *mMaxVelocity, 25.0f );
 	//move to oposite side of screen if we are off
 	GRAPHICS_SYSTEM->wrapCoordinates( mPosition );
 

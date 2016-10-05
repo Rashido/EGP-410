@@ -2,8 +2,8 @@
 #define STATE_MANAGER
 
 #include "Trackable.h"
-#include <memory>
 #include <string>
+#include <memory>
 
 enum ManagerState
 {
@@ -24,6 +24,8 @@ public:
 	void subtractFromAnEnemyStat();
 	void setState(ManagerState state);
 	inline void toggleActive() { mActive = !mActive; };
+
+	inline std::shared_ptr<float>  getVelocity() { return mpEnemyVel; };
 
 private:
 	ManagerState mState;

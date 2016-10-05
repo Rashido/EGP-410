@@ -23,7 +23,7 @@ public:
 	UnitManager();
 	~UnitManager();
 
-	void addUnit(Sprite* sprite, Vector2D& pos, Vector2D& vel, float maxVel, float maxAcc, std::string id);
+	void addUnit(Sprite* sprite, Vector2D& pos, Vector2D& vel, std::shared_ptr<float> maxVel, float maxAcc, std::string id);
 	void removeUnit(std::string id);
 	void setUnitBehavior(BehaviorType type, std::string entityID, std::string targetID);
 	KinematicUnit* getUnit(std::string id);
