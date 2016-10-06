@@ -17,6 +17,7 @@ public:
 	void cleanUp();
 
 	Wall* getWall(int index);
+	inline int getNumOfWalls() { return mWallList.size(); };
 
 private:
 	std::vector<Wall*> mWallList;

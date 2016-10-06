@@ -15,6 +15,7 @@ public:
 
 	bool checkCollision(Hitbox& otherBox);
 	void update(float deltaX, float deltaY);
+	void draw();
 
 private:
 	float minX;

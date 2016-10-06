@@ -11,6 +11,7 @@ public:
 	~KinematicArriveSteering(){};
 
 	void setTarget( const Vector2D& targetPosition ){ mTarget = targetPosition; };
+	inline Vector2D getTarget() { return mTarget; };
 
 	virtual Steering* getSteering();
 

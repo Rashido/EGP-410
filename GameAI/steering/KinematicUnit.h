@@ -2,6 +2,7 @@
 
 #include "Kinematic.h"
 #include "Steering.h"
+#include "Hitbox.h"
 
 #include <memory>
 
@@ -36,6 +37,9 @@ public:
 	float getMaxAcceleration() const { return mMaxAcceleration; };
 	void setVelocity( const Vector2D& velocity ){ mVelocity = velocity; };
 
+	//check collision
+	bool checkCollisionWithWalls();
+
 	virtual void setNewOrientation();//face the direction you are moving
 
 	//draw yourself to the indicated buffer
@@ -57,10 +61,11 @@ private:
 	Sprite* mpSprite;
 	Steering* mpCurrentSteering;
 	Vector2D mTarget;//used only for Kinematic seek and arrive
-	//float mMaxVelocity;
 	float mMaxAcceleration;
 	std::shared_ptr<float> mMaxVelocity;
 	//std::shared_ptr<float> mMaxRotionalVelocity;
+	bool mBounceVertically;//if false bounce horizontally
+	Hitbox mHitbox;
 
 	void setSteering( Steering* pSteering );
 

@@ -2,6 +2,8 @@
 
 #include "Vector2D.h"
 
+#include <allegro5\allegro_primitives.h>
+
 Hitbox::Hitbox()
 {
 
@@ -39,6 +41,11 @@ bool Hitbox::checkCollision(Hitbox& otherBox)
 	{
 		return false;
 	}
+}
+
+void Hitbox::draw()
+{
+	al_draw_rectangle(minX, minY, maxX, maxY, al_map_rgb(255, 0, 0), 3.0f);
 }
 
 void Hitbox::update(float deltaX, float deltaY)

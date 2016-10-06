@@ -33,6 +33,7 @@ public:
 	bool shouldApplyDirectly() const { return mApplyDirectly; };
 
 	virtual Steering* getSteering() { return this; };//overridden by sub-classes
+	virtual Vector2D getTarget() { return NULL; };
 
 protected:
 	Vector2D mLinear;//linear velocity

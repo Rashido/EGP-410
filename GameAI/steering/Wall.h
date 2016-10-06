@@ -6,13 +6,20 @@
 
 #include <allegro5\allegro_primitives.h>
 
+enum BounceType
+{
+	VERTICAL,
+	HORIZONTAL
+};
+
 class Wall : public Trackable
 {
 public:
-	Wall(float x1, float y1, float x2, float y2);
+	Wall(float x1, float y1, float x2, float y2, BounceType verticalWall);
 	~Wall();
 
 	inline Hitbox& getHitbox() { return mHitbox; };
+	inline BounceType getBounceType() { return mBounceType; };
 	void draw();
 
 private:
@@ -22,6 +29,8 @@ private:
 	float minY;
 	float maxX;
 	float maxY;
+
+	BounceType mBounceType;
 };
 
 #endif

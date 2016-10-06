@@ -13,10 +13,10 @@ WallManager::~WallManager()
 //this basically sets up the inital walls. A bit sloppy but does the trick
 void WallManager::init()
 {
-	mWallList.push_back(new Wall(0, 0, 50, 768)); //left wall
-	mWallList.push_back(new Wall(0, 0, 1024, 50)); //top wall
-	mWallList.push_back(new Wall(0, 768, 1024, 718)); //bottom wall
-	mWallList.push_back(new Wall(974, 768, 1024, 0)); //right wall
+	mWallList.push_back(new Wall(0, 0, 50, 768, HORIZONTAL)); //left wall
+	mWallList.push_back(new Wall(0, 0, 1024, 50, VERTICAL)); //top wall
+	mWallList.push_back(new Wall(0, 718, 1024, 768, VERTICAL)); //bottom wall
+	mWallList.push_back(new Wall(974, 0, 1024, 768, HORIZONTAL)); //right wall
 }
 
 void WallManager::update()
@@ -24,6 +24,7 @@ void WallManager::update()
 	for (auto iter : mWallList)
 	{
 		iter->draw();
+		//iter->getHitbox().draw();
 	}
 }
 

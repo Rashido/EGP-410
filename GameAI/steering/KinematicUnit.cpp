@@ -3,6 +3,7 @@
 #include "KinematicUnit.h"
 #include "Sprite.h"
 #include "GraphicsSystem.h"
+#include "WallManager.h"
 #include "Steering.h"
 #include "KinematicSeekSteering.h"
 #include "KinematicArriveSteering.h"
@@ -10,6 +11,9 @@
 #include "DynamicSeekSteering.h"
 #include "DynamicArriveSteering.h"
 #include "WanderAndSeekSteering.h"
+
+#include "GameMessageManager.h"
+#include "PlayerMoveToMessage.h"
 
 using namespace std;
 
@@ -22,6 +26,7 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 ,mMaxVelocity(maxVelocity)
 ,mMaxAcceleration(maxAcceleration)
 {
+	mHitbox = Hitbox(Vector2D(position.getX()-16, position.getY()-16), 32, 32); //32 is the length and width of the arrow sprite
 }
 
 KinematicUnit::~KinematicUnit()
@@ -32,10 +37,13 @@ KinematicUnit::~KinematicUnit()
 void KinematicUnit::draw( GraphicsBuffer* pBuffer )
 {
 	mpSprite->draw( *pBuffer, mPosition.getX(), mPosition.getY(), mOrientation );
+	mHitbox.draw();
 }
 
 void KinematicUnit::update(float time)
 {
+	Vector2D tempPos = mPosition;
+
 	Steering* steering;
 	if( mpCurrentSteering != NULL )
 	{
@@ -59,16 +67,83 @@ void KinematicUnit::update(float time)
 		setRotationalVelocity( 0.0f );
 		steering->setAngular( 0.0f );
 	}
+	//check if colliding with wall
+	if (checkCollisionWithWalls())
+	{
+		Vector2D newVel;
+		if (steering->shouldApplyDirectly())
+		{
+			if (mBounceVertically)
+			{
+				GameMessage* pMessage;
+				if (mPosition.getY() < 500)
+					pMessage = new PlayerMoveToMessage(Vector2D(mPosition.getX(), mPosition.getY() + 50));
+				else
+					pMessage = new PlayerMoveToMessage(Vector2D(mPosition.getX(), mPosition.getY() - 50));
 
+				gpGame->getMessageManager()->addMessage(pMessage, 0);
+				newVel = Vector2D(mVelocity.getX(), -(mVelocity.getY()*2));
+			}
+			else
+			{
+				GameMessage* pMessage;
+				if (mPosition.getX() < 400)
+					pMessage = new PlayerMoveToMessage(Vector2D(mPosition.getX() + 50, mPosition.getY()));
+				else
+					pMessage = new PlayerMoveToMessage(Vector2D(mPosition.getX() - 50, mPosition.getY()));
+
+				gpGame->getMessageManager()->addMessage(pMessage, 0);
+				newVel = Vector2D(-(mVelocity.getX()*2), mVelocity.getY());
+			}
+		}
+		else
+		{
+			if (mBounceVertically)
+			{
+				newVel = Vector2D(mVelocity.getX(), -(mVelocity.getY()));
+			}
+			else
+			{
+				newVel = Vector2D(-(mVelocity.getX()), mVelocity.getY());
+			}
+		}
+
+		mVelocity = newVel;
+	}
 	//move the unit using current velocities
 	Kinematic::update( time );
 	//calculate new velocities
 	calcNewVelocities( *steering, time, *mMaxVelocity, 25.0f );
+	//update hitbox location
+	tempPos = mPosition - tempPos;
+	mHitbox.update(tempPos.getX(), tempPos.getY());
 	//move to oposite side of screen if we are off
 	GRAPHICS_SYSTEM->wrapCoordinates( mPosition );
 
 	//set the orientation to match the direction of travel
 	//setNewOrientation();
+}
+
+bool KinematicUnit::checkCollisionWithWalls()
+{
+	for (int i = 0; i < gpGame->getWallManager()->getNumOfWalls(); i++)
+	{
+		if (mHitbox.checkCollision(gpGame->getWallManager()->getWall(i)->getHitbox()))
+		{
+			if (gpGame->getWallManager()->getWall(i)->getBounceType() == VERTICAL)
+			{
+				mBounceVertically = true;
+			}
+			else
+			{
+				mBounceVertically = false;
+			}
+
+			return true;
+		}
+	}
+
+	return false;
 }
 
 //private - deletes old Steering before setting
