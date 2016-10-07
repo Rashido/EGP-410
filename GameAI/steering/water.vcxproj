@@ -15,6 +15,7 @@
     <ClInclude Include="AddDynamicSeekAIMessage.h" />
     <ClInclude Include="AddWanderAndFleeAIMessage.h" />
     <ClInclude Include="AddWanderAndSeekAIMessage.h" />
+    <ClInclude Include="CollisionAvoidanceSteering.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="DeleteRandomAIMessage.h" />
     <ClInclude Include="DynamicArriveSteering.h" />
@@ -48,6 +49,7 @@
     <ClCompile Include="AddDynamicSeekAIMessage.cpp" />
     <ClCompile Include="AddWanderAndFleeAIMessage.cpp" />
     <ClCompile Include="AddWanderAndSeekAIMessage.cpp" />
+    <ClCompile Include="CollisionAvoidanceSteering.cpp" />
     <ClCompile Include="DeleteRandomAIMessage.cpp" />
     <ClCompile Include="DynamicArriveSteering.cpp" />
     <ClCompile Include="DynamicSeekSteering.cpp" />

@@ -1,6 +1,5 @@
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\vc120.pdb
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\vc120.idb
-c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\gamemessagemanager.obj
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\graphicsbuffer.obj
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\graphicsbuffermanager.obj
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\graphicssystem.obj
@@ -19,6 +18,7 @@ c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\statemanager.obj
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\steering.obj
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\unitmanager.obj
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\wall.obj
+c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\wallmanager.obj
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\wanderandseeksteering.obj
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\adddynamicarriveaimessage.obj
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\adddynamicseekaimessage.obj
@@ -30,7 +30,7 @@ c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\dynamicseeksteer
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\exitgamemessage.obj
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\game.obj
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\gamemessage.obj
-c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\wallmanager.obj
+c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\gamemessagemanager.obj
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\steering.ilk
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\steering.exe
 c:\users\gabriel\documents\github\egp-410\gameai\steering\debug\steering.pdb

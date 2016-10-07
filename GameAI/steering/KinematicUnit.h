@@ -16,6 +16,7 @@ Champlain College
 //forward declarations
 class Sprite;
 class GraphicsBuffer;
+class CollisionAvoidanceSteering;
 
 extern Steering gNullSteering;//global object - can point to it for a "NULL" Steering
 
@@ -26,7 +27,7 @@ const float MIN_VELOCITY_TO_TURN_SQUARED = 1.0f;
 class KinematicUnit: public Kinematic
 {
 public:
-	KinematicUnit( Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::shared_ptr<float> maxVelocity, float maxAcceleration = 1.0f );
+	KinematicUnit( Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::shared_ptr<float> maxVelocity, float maxAcceleration = 1.0f, bool isPlayer = false );
 	~KinematicUnit();
 
 	//getters and setters
@@ -60,12 +61,15 @@ public:
 private:
 	Sprite* mpSprite;
 	Steering* mpCurrentSteering;
+	CollisionAvoidanceSteering* mpCollisionAvoidance;
 	Vector2D mTarget;//used only for Kinematic seek and arrive
 	float mMaxAcceleration;
 	std::shared_ptr<float> mMaxVelocity;
 	//std::shared_ptr<float> mMaxRotionalVelocity;
 	bool mBounceVertically;//if false bounce horizontally
 	Hitbox mHitbox;
+
+	bool mPlayer; //am I a player?
 
 	void setSteering( Steering* pSteering );
 

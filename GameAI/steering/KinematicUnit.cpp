@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Kinematic.h"
 #include "KinematicUnit.h"
+#include "UnitManager.h"
 #include "Sprite.h"
 #include "GraphicsSystem.h"
 #include "WallManager.h"
@@ -11,6 +12,7 @@
 #include "DynamicSeekSteering.h"
 #include "DynamicArriveSteering.h"
 #include "WanderAndSeekSteering.h"
+#include "CollisionAvoidanceSteering.h"
 
 #include "GameMessageManager.h"
 #include "PlayerMoveToMessage.h"
@@ -19,25 +21,28 @@ using namespace std;
 
 Steering gNullSteering( gZeroVector2D, 0.0f );
 
-KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel, std::shared_ptr<float> maxVelocity, float maxAcceleration)
+KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel, std::shared_ptr<float> maxVelocity, float maxAcceleration, bool isPlayer)
 :Kinematic( position, orientation, velocity, rotationVel )
 ,mpSprite(pSprite)
 ,mpCurrentSteering(NULL)
 ,mMaxVelocity(maxVelocity)
 ,mMaxAcceleration(maxAcceleration)
+, mPlayer(isPlayer)
 {
+	mpCollisionAvoidance = new CollisionAvoidanceSteering(this, gpGame->getUnitManager()->getMap());
 	mHitbox = Hitbox(Vector2D(position.getX()-16, position.getY()-16), 32, 32); //32 is the length and width of the arrow sprite
 }
 
 KinematicUnit::~KinematicUnit()
 {
 	delete mpCurrentSteering;
+	delete mpCollisionAvoidance;
 }
 
 void KinematicUnit::draw( GraphicsBuffer* pBuffer )
 {
 	mpSprite->draw( *pBuffer, mPosition.getX(), mPosition.getY(), mOrientation );
-	mHitbox.draw();
+	//mHitbox.draw();
 }
 
 void KinematicUnit::update(float time)
@@ -45,13 +50,22 @@ void KinematicUnit::update(float time)
 	Vector2D tempPos = mPosition;
 
 	Steering* steering;
-	if( mpCurrentSteering != NULL )
+	//check for collision with other units
+	mpCollisionAvoidance->updateSteering();
+	if (!mPlayer && mpCollisionAvoidance->getDanger())
 	{
-		steering = mpCurrentSteering->getSteering();
+		steering = mpCollisionAvoidance;		
 	}
 	else
 	{
-		steering = &gNullSteering;
+		if (mpCurrentSteering != NULL)
+		{
+			steering = mpCurrentSteering->getSteering();
+		}
+		else
+		{
+			steering = &gNullSteering;
+		}
 	}
 
 	if( steering->shouldApplyDirectly() )
@@ -67,11 +81,12 @@ void KinematicUnit::update(float time)
 		setRotationalVelocity( 0.0f );
 		steering->setAngular( 0.0f );
 	}
+
 	//check if colliding with wall
 	if (checkCollisionWithWalls())
 	{
 		Vector2D newVel;
-		if (steering->shouldApplyDirectly())
+		if (steering->shouldApplyDirectly()) //basically if player
 		{
 			if (mBounceVertically)
 			{
@@ -96,7 +111,7 @@ void KinematicUnit::update(float time)
 				newVel = Vector2D(-(mVelocity.getX()*2), mVelocity.getY());
 			}
 		}
-		else
+		else //normal behavior for AI units
 		{
 			if (mBounceVertically)
 			{

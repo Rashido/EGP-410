@@ -181,7 +181,7 @@ bool Game::init()
 	//setup units
 	Vector2D pos( 100.0f, 100.0f );
 	Vector2D vel( 0.0f, 0.0f );
-	mpUnitManager->addUnit(pArrowSprite, pos, vel, std::shared_ptr<float>(new float(200.0f)), 10.0f, "player");
+	mpUnitManager->addUnit(pArrowSprite, pos, vel, std::shared_ptr<float>(new float(200.0f)), 10.0f, "player", true);
 	
 	/*Vector2D pos2( 1000.0f, 500.0f );
 	Vector2D vel2( 0.0f, 0.0f );
