@@ -21,12 +21,14 @@ using namespace std;
 
 Steering gNullSteering( gZeroVector2D, 0.0f );
 
-KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel, std::shared_ptr<float> maxVelocity, float maxAcceleration, bool isPlayer)
-:Kinematic( position, orientation, velocity, rotationVel )
-,mpSprite(pSprite)
-,mpCurrentSteering(NULL)
-,mMaxVelocity(maxVelocity)
-,mMaxAcceleration(maxAcceleration)
+KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel, std::shared_ptr<float> maxVelocity, std::shared_ptr<float> reactionRadius, std::shared_ptr<float> maxRotational, float maxAcceleration, bool isPlayer)
+:Kinematic(position, orientation, velocity, rotationVel)
+, mpSprite(pSprite)
+, mpCurrentSteering(NULL)
+, mMaxVelocity(maxVelocity)
+, mReactionRadius(reactionRadius)
+, mMaxRotationalVelocity(maxRotational)
+, mMaxAcceleration(maxAcceleration)
 , mPlayer(isPlayer)
 {
 	mpCollisionAvoidance = new CollisionAvoidanceSteering(this, gpGame->getUnitManager()->getMap());
@@ -42,7 +44,7 @@ KinematicUnit::~KinematicUnit()
 void KinematicUnit::draw( GraphicsBuffer* pBuffer )
 {
 	mpSprite->draw( *pBuffer, mPosition.getX(), mPosition.getY(), mOrientation );
-	//mHitbox.draw();
+	mHitbox.draw();
 }
 
 void KinematicUnit::update(float time)
@@ -52,11 +54,11 @@ void KinematicUnit::update(float time)
 	Steering* steering;
 	//check for collision with other units
 	mpCollisionAvoidance->updateSteering();
-	if (!mPlayer && mpCollisionAvoidance->getDanger())
+	if (!mPlayer && mpCollisionAvoidance->getDanger()) //if in danger set steering to avoidance
 	{
 		steering = mpCollisionAvoidance;		
 	}
-	else
+	else //otherwise proceed normally
 	{
 		if (mpCurrentSteering != NULL)
 		{
@@ -86,7 +88,7 @@ void KinematicUnit::update(float time)
 	if (checkCollisionWithWalls())
 	{
 		Vector2D newVel;
-		if (steering->shouldApplyDirectly()) //basically if player
+		if (mPlayer) //player bounce behavior. A bit wonky but gets the job done
 		{
 			if (mBounceVertically)
 			{
@@ -128,7 +130,7 @@ void KinematicUnit::update(float time)
 	//move the unit using current velocities
 	Kinematic::update( time );
 	//calculate new velocities
-	calcNewVelocities( *steering, time, *mMaxVelocity, 25.0f );
+	calcNewVelocities( *steering, time, *mMaxVelocity, *mMaxRotationalVelocity );
 	//update hitbox location
 	tempPos = mPosition - tempPos;
 	mHitbox.update(tempPos.getX(), tempPos.getY());
@@ -211,12 +213,12 @@ void KinematicUnit::dynamicArrive( KinematicUnit* pTarget )
 
 void KinematicUnit::wanderAndSeek(KinematicUnit* pTarget)
 {
-	WanderAndSeekSteering* pWanderAndSeekSteering = new WanderAndSeekSteering(this, pTarget);
+	WanderAndSeekSteering* pWanderAndSeekSteering = new WanderAndSeekSteering(this, pTarget, mReactionRadius);
 	setSteering(pWanderAndSeekSteering);
 }
 
 void KinematicUnit::wanderAndFlee(KinematicUnit* pTarget)
 {
-	WanderAndSeekSteering* pWanderAndSeekSteering = new WanderAndSeekSteering(this, pTarget, true);
+	WanderAndSeekSteering* pWanderAndSeekSteering = new WanderAndSeekSteering(this, pTarget, mReactionRadius, true);
 	setSteering(pWanderAndSeekSteering);
 }

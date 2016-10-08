@@ -114,6 +114,11 @@ void InputManager::update()
 				gpGame->getStateManager()->setState(ANGULAR);
 			}
 
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_C)
+			{
+				gpGame->getStateManager()->setState(COLLISION_BOXES);
+			}
+
 			if (mEvent.keyboard.keycode == ALLEGRO_KEY_PAD_PLUS)
 			{
 				gpGame->getStateManager()->addToAnEnemyStat();

@@ -20,4 +20,5 @@ Wall::~Wall()
 void Wall::draw()
 {
 	al_draw_filled_rectangle(minX, minY, maxX, maxY, al_map_rgb(0, 0, 0));
+	mHitbox.draw();
 }

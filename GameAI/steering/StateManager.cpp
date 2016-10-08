@@ -5,10 +5,11 @@
 #include <sstream>
 #include <iomanip>
 
-StateManager::StateManager(float defaultVel, float defaultRad, float defaultAngular):
+StateManager::StateManager(float defaultVel, float defaultRad, float defaultAngular, bool defaultShowBox):
 mpEnemyVel(new float(defaultVel)),
 mpEnemyRadius(new float(defaultRad)),
-mpEnemyAngularVel(new float(defaultAngular))
+mpEnemyAngularVel(new float(defaultAngular)),
+mpShowCollisionBoxes(new bool(defaultShowBox))
 {
 	//init strings
 	setState(VELOCITY); //note to self, mActive is defaultly true so this will still init mCurrentModeText
@@ -27,6 +28,8 @@ mpEnemyAngularVel(new float(defaultAngular))
 	mEnemyAngularVelText = "Enemy Angular Velocity: " + ss.str();
 	ss.str(std::string());
 
+	mCollisionDebugText = "Collision Debug: Off";
+
 	mActive = false;
 }
 
@@ -44,6 +47,7 @@ void StateManager::update()
 		al_draw_text(gpGame->getFont(), al_map_rgb(255, 255, 255), 5, 20, ALLEGRO_ALIGN_LEFT, mEnemyVelText.c_str());
 		al_draw_text(gpGame->getFont(), al_map_rgb(255, 255, 255), 5, 40, ALLEGRO_ALIGN_LEFT, mEnemyRadiusText.c_str());
 		al_draw_text(gpGame->getFont(), al_map_rgb(255, 255, 255), 5, 60, ALLEGRO_ALIGN_LEFT, mEnemyAngularVelText.c_str());
+		al_draw_text(gpGame->getFont(), al_map_rgb(255, 255, 255), 5, 80, ALLEGRO_ALIGN_LEFT, mCollisionDebugText.c_str());
 	}
 }
 
@@ -56,23 +60,28 @@ void StateManager::addToAnEnemyStat()
 		switch (mState)
 		{
 		case VELOCITY:
-			*mpEnemyVel += 5.0f;
+			*mpEnemyVel += 10.0f;
 			ss << std::fixed << std::setprecision(1) << *mpEnemyVel;
 			mEnemyVelText = "Enemy Velocity: " + ss.str();
 			ss.str(std::string());
 			break;
 		case RADIUS:
-			*mpEnemyRadius += 5.0f;
+			*mpEnemyRadius += 10.0f;
 			ss << std::fixed << std::setprecision(1) << *mpEnemyRadius;
 			mEnemyRadiusText = "Enemy Reaction Radius: " + ss.str();
 			ss.str(std::string());
 			break;
 		case ANGULAR:
-			*mpEnemyAngularVel += 3.0f;
+			*mpEnemyAngularVel += 5.0f;
 			ss << std::fixed << std::setprecision(1) << *mpEnemyAngularVel;
 			mEnemyAngularVelText = "Enemy Angular Velocity: " + ss.str();
 			ss.str(std::string());
 			break;
+		case COLLISION_BOXES:
+			*mpShowCollisionBoxes = true;
+			mCollisionDebugText = "Collision Debug: On";
+			break;
+			
 		}
 	}
 }
@@ -86,22 +95,26 @@ void StateManager::subtractFromAnEnemyStat()
 		switch (mState)
 		{
 		case VELOCITY:
-			*mpEnemyVel -= 5.0f;
+			*mpEnemyVel -= 10.0f;
 			ss << std::fixed << std::setprecision(1) << *mpEnemyVel;
 			mEnemyVelText = "Enemy Velocity: " + ss.str();
 			ss.str(std::string());
 			break;
 		case RADIUS:
-			*mpEnemyRadius -= 5.0f;
+			*mpEnemyRadius -= 10.0f;
 			ss << std::fixed << std::setprecision(1) << *mpEnemyRadius;
 			mEnemyRadiusText = "Enemy Reaction Radius: " + ss.str();
 			ss.str(std::string());
 			break;
 		case ANGULAR:
-			*mpEnemyAngularVel -= 3.0f;
+			*mpEnemyAngularVel -= 5.0f;
 			ss << std::fixed << std::setprecision(1) << *mpEnemyAngularVel;
 			mEnemyAngularVelText = "Enemy Angular Velocity: " + ss.str();
 			ss.str(std::string());
+		case COLLISION_BOXES:
+			*mpShowCollisionBoxes = false;
+			mCollisionDebugText = "Collision Debug: Off";
+			break;
 		}
 	}
 }
@@ -123,6 +136,9 @@ void StateManager::setState(ManagerState state)
 			break;
 		case ANGULAR:
 			mCurrentModeText += "Angular Velocity";
+			break;
+		case COLLISION_BOXES:
+			mCurrentModeText += "Collision Box Debug";
 			break;
 		}
 	}

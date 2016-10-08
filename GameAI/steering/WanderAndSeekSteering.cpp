@@ -2,8 +2,8 @@
 #include "KinematicUnit.h"
 #include "Game.h"
 
-WanderAndSeekSteering::WanderAndSeekSteering(KinematicUnit *pMover, KinematicUnit* pTarget, bool shouldFlee, float targetRadius)
-:mpMover(pMover)
+WanderAndSeekSteering::WanderAndSeekSteering(KinematicUnit* pMove, KinematicUnit* pTarget, std::shared_ptr<float> targetRadius, bool shouldFlee)
+:mpMover(pMove)
 , mpTarget(pTarget)
 , mShouldFlee(shouldFlee)
 , mTargetRadius(targetRadius)
@@ -17,7 +17,7 @@ Steering* WanderAndSeekSteering::getSteering()
 	float distance = direction.getLength();
 
 	//if in target radius, perform seek or flee behavior
-	if (distance < mTargetRadius)
+	if (distance < *mTargetRadius)
 	{
 		if (!mShouldFlee)
 		{

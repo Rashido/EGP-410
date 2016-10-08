@@ -2,14 +2,20 @@
 
 #include "Vector2D.h"
 
+#include "Game.h"
+
+#include "StateManager.h"
+
 #include <allegro5\allegro_primitives.h>
 
-Hitbox::Hitbox()
+Hitbox::Hitbox():
+mpShowBoxes(gpGame->getStateManager()->getCollisionBoxes())
 {
 
 }
 
-Hitbox::Hitbox(Vector2D position, float width, float height)
+Hitbox::Hitbox(Vector2D position, float width, float height):
+mpShowBoxes(gpGame->getStateManager()->getCollisionBoxes())
 {
 	minX = position.getX();
 	minY = position.getY();
@@ -17,7 +23,8 @@ Hitbox::Hitbox(Vector2D position, float width, float height)
 	maxY = minY + height;
 }
 
-Hitbox::Hitbox(float x1, float y1, float x2, float y2)
+Hitbox::Hitbox(float x1, float y1, float x2, float y2):
+mpShowBoxes(gpGame->getStateManager()->getCollisionBoxes())
 {
 	minX = x1;
 	minY = y1;
@@ -45,7 +52,10 @@ bool Hitbox::checkCollision(Hitbox& otherBox)
 
 void Hitbox::draw()
 {
-	al_draw_rectangle(minX, minY, maxX, maxY, al_map_rgb(255, 0, 0), 3.0f);
+	if (*mpShowBoxes == true)
+	{
+		al_draw_rectangle(minX, minY, maxX, maxY, al_map_rgb(255, 0, 0), 3.0f);
+	}	
 }
 
 void Hitbox::update(float deltaX, float deltaY)

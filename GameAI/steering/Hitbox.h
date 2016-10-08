@@ -2,6 +2,7 @@
 #define HIT_BOX
 
 #include "Trackable.h"
+#include <memory>
 
 class Vector2D;
 
@@ -22,6 +23,8 @@ private:
 	float minY;
 	float maxX;
 	float maxY;
+
+	std::shared_ptr<bool> mpShowBoxes;
 };
 
 #endif

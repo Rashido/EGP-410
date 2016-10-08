@@ -27,7 +27,7 @@ const float MIN_VELOCITY_TO_TURN_SQUARED = 1.0f;
 class KinematicUnit: public Kinematic
 {
 public:
-	KinematicUnit( Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::shared_ptr<float> maxVelocity, float maxAcceleration = 1.0f, bool isPlayer = false );
+	KinematicUnit( Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::shared_ptr<float> maxVelocity, std::shared_ptr<float> reactionRadius, std::shared_ptr<float> maxRotational, float maxAcceleration = 1.0f, bool isPlayer = false );
 	~KinematicUnit();
 
 	//getters and setters
@@ -65,6 +65,8 @@ private:
 	Vector2D mTarget;//used only for Kinematic seek and arrive
 	float mMaxAcceleration;
 	std::shared_ptr<float> mMaxVelocity;
+	std::shared_ptr<float> mReactionRadius;
+	std::shared_ptr<float> mMaxRotationalVelocity;
 	//std::shared_ptr<float> mMaxRotionalVelocity;
 	bool mBounceVertically;//if false bounce horizontally
 	Hitbox mHitbox;

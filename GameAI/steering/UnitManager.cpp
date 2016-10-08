@@ -20,9 +20,9 @@ UnitManager::~UnitManager()
 	cleanUp();
 }
 
-void UnitManager::addUnit(Sprite* sprite, Vector2D& pos, Vector2D& vel, std::shared_ptr<float> maxVel, float maxAcc,  std::string id, bool isPlayer)
+void UnitManager::addUnit(Sprite* sprite, Vector2D& pos, Vector2D& vel, std::shared_ptr<float> maxVel, std::shared_ptr<float> reactionRadius, std::shared_ptr<float> maxRotational, float maxAcc, std::string id, bool isPlayer)
 {
-	mpUnitList->emplace(id, new KinematicUnit(sprite, pos, 1, vel, 0.0f, maxVel, maxAcc, isPlayer));
+	mpUnitList->emplace(id, new KinematicUnit(sprite, pos, 1, vel, 0.0f, maxVel, reactionRadius, maxRotational, maxAcc, isPlayer));
 	mUnitCount++;
 }
 
