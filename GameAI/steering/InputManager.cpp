@@ -12,6 +12,7 @@
 #include "DeleteRandomAIMessage.h"
 #include "AddWanderAndFleeAIMessage.h"
 #include "AddWanderAndSeekAIMessage.h"
+#include "AddBoidAIMessage.h"
 
 #include <sstream>
 
@@ -96,7 +97,9 @@ void InputManager::update()
 			if (mEvent.keyboard.keycode == ALLEGRO_KEY_I)
 			{
 				//toggle state manager
-				gpGame->getStateManager()->toggleActive();
+				//gpGame->getStateManager()->toggleActive();
+				GameMessage* pMessage = new AddBoidAIMessage();
+				gpGame->getMessageManager()->addMessage(pMessage, 0);
 			}
 
 			if (mEvent.keyboard.keycode == ALLEGRO_KEY_V)

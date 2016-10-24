@@ -13,6 +13,7 @@ enum MessageType
 	DELETE_RANDOM_AI_MESSAGE = 4,
 	ADD_WANDER_AND_SEEK_AI_MESSAGE = 5,
 	ADD_WANDER_AND_FLEE_AI_MESSAGE = 6,
+	ADD_BOID_MESSAGE = 7
 };
 
 class GameMessage: public Trackable

@@ -14,7 +14,8 @@ enum BehaviorType
 	DYNAMIC_ARRIVE,
 	DYNAMIC_SEEK,
 	WANDER_AND_SEEK,
-	WANDER_AND_FLEE
+	WANDER_AND_FLEE,
+	BOID
 };
 
 class UnitManager :public Trackable

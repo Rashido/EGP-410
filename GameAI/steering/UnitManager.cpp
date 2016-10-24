@@ -46,6 +46,9 @@ void UnitManager::setUnitBehavior(BehaviorType type, std::string entityID, std::
 		case WANDER_AND_FLEE:
 			mpUnitList->at(entityID)->wanderAndFlee(mpUnitList->at(targetID));
 			break;
+		case BOID:
+			mpUnitList->at(entityID)->boid();
+			break;
 	}
 }
 

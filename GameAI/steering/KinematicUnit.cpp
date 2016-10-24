@@ -13,6 +13,7 @@
 #include "DynamicArriveSteering.h"
 #include "WanderAndSeekSteering.h"
 #include "CollisionAvoidanceSteering.h"
+#include "GroupAlignmentSteering.h"
 
 #include "GameMessageManager.h"
 #include "PlayerMoveToMessage.h"
@@ -221,4 +222,10 @@ void KinematicUnit::wanderAndFlee(KinematicUnit* pTarget)
 {
 	WanderAndSeekSteering* pWanderAndSeekSteering = new WanderAndSeekSteering(this, pTarget, mReactionRadius, true);
 	setSteering(pWanderAndSeekSteering);
+}
+
+void KinematicUnit::boid()
+{
+	GroupAlignmentSteering* pBoidSteering = new GroupAlignmentSteering(this, gpGame->getUnitManager()->getMap(), 25);
+	setSteering(pBoidSteering);
 }

@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddBoidAIMessage.h" />
     <ClInclude Include="AddDynamicArriveAIMessage.h" />
     <ClInclude Include="AddDynamicSeekAIMessage.h" />
     <ClInclude Include="AddWanderAndFleeAIMessage.h" />
@@ -29,6 +30,7 @@
     <ClInclude Include="GraphicsBuffer.h" />
     <ClInclude Include="GraphicsBufferManager.h" />
     <ClInclude Include="GraphicsSystem.h" />
+    <ClInclude Include="GroupAlignmentSteering.h" />
     <ClInclude Include="Hitbox.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Kinematic.h" />
@@ -48,6 +50,7 @@
     <ClInclude Include="WanderAndSeekSteering.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddBoidAIMessage.cpp" />
     <ClCompile Include="AddDynamicArriveAIMessage.cpp" />
     <ClCompile Include="AddDynamicSeekAIMessage.cpp" />
     <ClCompile Include="AddWanderAndFleeAIMessage.cpp" />
@@ -65,6 +68,7 @@
     <ClCompile Include="GraphicsBuffer.cpp" />
     <ClCompile Include="GraphicsBufferManager.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
+    <ClCompile Include="GroupAlignmentSteering.cpp" />
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Kinematic.cpp" />

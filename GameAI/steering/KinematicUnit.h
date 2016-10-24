@@ -58,6 +58,7 @@ public:
 	void dynamicArrive( KinematicUnit* pTarget );
 	void wanderAndSeek(KinematicUnit* pTarget);
 	void wanderAndFlee(KinematicUnit* pTarget);
+	void boid();
 
 private:
 	Sprite* mpSprite;
@@ -68,7 +69,6 @@ private:
 	std::shared_ptr<float> mMaxVelocity;
 	std::shared_ptr<float> mReactionRadius;
 	std::shared_ptr<float> mMaxRotationalVelocity;
-	//std::shared_ptr<float> mMaxRotionalVelocity;
 	bool mBounceVertically;//if false bounce horizontally
 	Hitbox mHitbox;
 
