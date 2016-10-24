@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STEERING_H
+#define STEERING_H
 
 /*Steering - implementation of Steering class from "Artificial Intelligence for Games" - Millington and Funge
 	Mostly modified by adding the mApplyDirectly bool variable to indicate if this Steering should operate as an override on the Kinematic's velocities
@@ -33,6 +34,7 @@ public:
 	bool shouldApplyDirectly() const { return mApplyDirectly; };
 
 	virtual Steering* getSteering() { return this; };//overridden by sub-classes
+	virtual Vector2D getTarget() { return NULL; };
 
 protected:
 	Vector2D mLinear;//linear velocity
@@ -40,3 +42,5 @@ protected:
 	bool mApplyDirectly;
 
 };
+
+#endif

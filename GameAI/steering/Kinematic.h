@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UNIT_H
+#define UNIT_H
 
 #include "Vector2D.h"
 #include "Trackable.h"
@@ -49,3 +50,5 @@ protected:
 	float mOrientation;//where am I facing?
 	float mRotationVel;//how fast am I turning?
 };
+
+#endif

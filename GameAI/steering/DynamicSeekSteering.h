@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DYNAMIC_SEEK_H
+#define DYNAMIC_SEEK_H
 
 #include "Steering.h"
 
@@ -19,3 +20,5 @@ private:
 	KinematicUnit* mpMover;
 	bool mShouldFlee;
 };
+
+#endif

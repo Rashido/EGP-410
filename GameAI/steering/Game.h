@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAME_H
+#define GAME_H
 
 #include "Trackable.h"
 #include "PerformanceTracker.h"
@@ -16,6 +17,8 @@ class UnitManager;
 class GameMessageManager;
 class Timer;
 class InputManager;
+class StateManager;
+class WallManager;
 
 const IDType BACKGROUND_SPRITE_ID = 0;
 const IDType PLAYER_ICON_SPRITE_ID = 1;
@@ -43,6 +46,8 @@ public:
 	inline GameMessageManager* getMessageManager() const { return mpMessageManager; };
 	inline InputManager* getInputManager() { return mpInputManager; };
 	inline UnitManager* getUnitManager() { return mpUnitManager; };
+	inline StateManager* getStateManager() { return mpStateManager; };
+	inline WallManager* getWallManager() { return mpWallManager; };
 	inline Timer* getMasterTimer() const { return mpMasterTimer; };
 	inline double getCurrentTime() const { return mpMasterTimer->getElapsedTime(); };
 	inline ALLEGRO_FONT* getFont() const { return mpFont; };
@@ -55,6 +60,8 @@ private:
 	GameMessageManager* mpMessageManager;
 	InputManager* mpInputManager;
 	UnitManager* mpUnitManager;
+	StateManager* mpStateManager;
+	WallManager* mpWallManager;
 	Timer* mpLoopTimer;
 	Timer* mpMasterTimer;
 	bool mShouldExit;
@@ -73,3 +80,4 @@ float genRandomFloat();//range 0:1 from "Artificial Intelligence for Games", Mil
 extern Game* gpGame;
 extern PerformanceTracker* gpPerformanceTracker;
 
+#endif

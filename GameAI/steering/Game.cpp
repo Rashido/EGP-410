@@ -9,6 +9,7 @@
 #include <allegro5/allegro_primitives.h>
 
 #include <sstream>
+#include <memory>
 
 #include "Game.h"
 #include "GraphicsSystem.h"
@@ -17,6 +18,8 @@
 #include "GameMessageManager.h"
 #include "InputManager.h"
 #include "UnitManager.h"
+#include "StateManager.h"
+#include "WallManager.h"
 #include "Sprite.h"
 #include "SpriteManager.h"
 #include "Timer.h"
@@ -44,11 +47,13 @@ Game::Game()
 
 Game::~Game()
 {
-	cleanup();
+
 }
 
 bool Game::init()
 {
+	srand(time(NULL)); //seed for random deletion
+
 	mShouldExit = false;
 
 	//create Timers
@@ -78,6 +83,11 @@ bool Game::init()
 	mpInputManager->init();
 
 	mpUnitManager = new UnitManager();
+
+	mpStateManager = new StateManager();
+
+	mpWallManager = new WallManager();
+	mpWallManager->init();
 
 	//startup a lot of allegro stuff
 
@@ -171,18 +181,18 @@ bool Game::init()
 	}
 
 	//setup units
-	Vector2D pos( 0.0f, 0.0f );
+	Vector2D pos( 100.0f, 100.0f );
 	Vector2D vel( 0.0f, 0.0f );
-	mpUnitManager->addUnit(pArrowSprite, pos, vel, 200.0f, 10.0f, "player");
+	mpUnitManager->addUnit(pArrowSprite, pos, vel, std::shared_ptr<float>(new float(200.0f)), std::shared_ptr<float>(new float(200.0f)), std::shared_ptr<float>(new float(25.0f)), 10.0f, "player", true);
 	
-	Vector2D pos2( 1000.0f, 500.0f );
+	/*Vector2D pos2( 1000.0f, 500.0f );
 	Vector2D vel2( 0.0f, 0.0f );
 	mpUnitManager->addUnit(pEnemyArrow, pos2, vel2, 180.0f, 100.0f, "ai1");
 	mpUnitManager->setUnitBehavior(DYNAMIC_ARRIVE, "ai1", "player");
 
 	Vector2D pos3( 500.0f, 500.0f );
 	mpUnitManager->addUnit(pEnemyArrow, pos3, vel2, 180.0f, 100.0f, "ai2");
-	mpUnitManager->setUnitBehavior(DYNAMIC_SEEK, "ai2", "player");
+	mpUnitManager->setUnitBehavior(DYNAMIC_SEEK, "ai2", "player");*/
 
 	return true;
 }
@@ -212,6 +222,12 @@ void Game::cleanup()
 
 	delete mpInputManager;
 	mpInputManager = NULL;
+
+	delete mpStateManager;
+	mpStateManager = NULL;
+
+	delete mpWallManager;
+	mpWallManager = NULL;
 
 	al_destroy_sample(mpSample);
 	mpSample = NULL;
@@ -246,7 +262,11 @@ void Game::processLoop()
 	//draw units
 	mpUnitManager->draw();
 
+	mpWallManager->update();
+
 	mpMessageManager->processMessagesForThisframe();
+
+	mpStateManager->update();
 
 	//get input
 	mpInputManager->update();

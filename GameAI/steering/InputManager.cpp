@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Vector2D.h"
 #include "GraphicsSystem.h"
+#include "StateManager.h"
 
 #include "GameMessageManager.h"
 #include "PlayerMoveToMessage.h"
@@ -9,6 +10,8 @@
 #include "AddDynamicArriveAIMessage.h"
 #include "AddDynamicSeekAIMessage.h"
 #include "DeleteRandomAIMessage.h"
+#include "AddWanderAndFleeAIMessage.h"
+#include "AddWanderAndSeekAIMessage.h"
 
 #include <sstream>
 
@@ -69,17 +72,17 @@ void InputManager::update()
 				gpGame->getMessageManager()->addMessage(pMessage, 0);
 			}
 
-			if (mEvent.keyboard.keycode == ALLEGRO_KEY_A)
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_F)
 			{
-				//add dynamic arrive ai
-				GameMessage* pMessage = new AddDynamicArriveAIMessage();
+				//add wander and flee ai
+				GameMessage* pMessage = new AddWanderAndFleeAIMessage();
 				gpGame->getMessageManager()->addMessage(pMessage, 0);
 			}
 
 			if (mEvent.keyboard.keycode == ALLEGRO_KEY_S)
 			{
-				//add dynamic seek ai
-				GameMessage* pMessage = new AddDynamicSeekAIMessage();
+				//add wander and seek ai
+				GameMessage* pMessage = new AddWanderAndSeekAIMessage();
 				gpGame->getMessageManager()->addMessage(pMessage, 0);
 			}
 
@@ -88,6 +91,42 @@ void InputManager::update()
 				//remove random ai unit
 				GameMessage* pMessage = new DeleteRandomAIMessage();
 				gpGame->getMessageManager()->addMessage(pMessage, 0);
+			}
+
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_I)
+			{
+				//toggle state manager
+				gpGame->getStateManager()->toggleActive();
+			}
+
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_V)
+			{
+				gpGame->getStateManager()->setState(VELOCITY);
+			}
+
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_R)
+			{
+				gpGame->getStateManager()->setState(RADIUS);
+			}
+
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_A)
+			{
+				gpGame->getStateManager()->setState(ANGULAR);
+			}
+
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_C)
+			{
+				gpGame->getStateManager()->setState(COLLISION_BOXES);
+			}
+
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_PAD_PLUS)
+			{
+				gpGame->getStateManager()->addToAnEnemyStat();
+			}
+
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_PAD_MINUS)
+			{
+				gpGame->getStateManager()->subtractFromAnEnemyStat();
 			}
 		}
 	}

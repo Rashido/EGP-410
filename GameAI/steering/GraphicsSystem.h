@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GRAPHICS_SYSTEM_H
+#define GRAPHICS_SYSTEM_H
 
 #include <allegro5/allegro.h>
 #include "Trackable.h"
@@ -32,3 +33,5 @@ private:
 	int mWidth;
 	int mHeight;
 };
+
+#endif

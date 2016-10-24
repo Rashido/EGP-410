@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DYNAMIC_ARRIVE_H
+#define DYNAMIC_ARRIVE_H
 
 #include "Steering.h"
 
@@ -21,3 +22,5 @@ private:
 	float mSlowRadius;
 	float mTimeToTarget;
 };
+
+#endif

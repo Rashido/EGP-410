@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KINEMATIC_ARRIVE_H
+#define KINEMATIC_ARRIVE_H
 
 #include "Steering.h"
 
@@ -11,6 +12,7 @@ public:
 	~KinematicArriveSteering(){};
 
 	void setTarget( const Vector2D& targetPosition ){ mTarget = targetPosition; };
+	inline Vector2D getTarget() { return mTarget; };
 
 	virtual Steering* getSteering();
 
@@ -20,3 +22,5 @@ private:
 	float mSatisfactionRadius;
 	float mTimeToTarget;
 };
+
+#endif

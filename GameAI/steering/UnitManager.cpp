@@ -10,8 +10,7 @@
 UnitManager::UnitManager()
 {
 	mUnitCount = 0;
-
-	srand(time(NULL)); //seed for random deletion
+	mpUnitList = new std::map<std::string, KinematicUnit*>;
 }
 
 UnitManager::~UnitManager()
@@ -19,16 +18,16 @@ UnitManager::~UnitManager()
 	cleanUp();
 }
 
-void UnitManager::addUnit(Sprite* sprite, Vector2D& pos, Vector2D& vel, float maxVel, float maxAcc,  std::string id)
+void UnitManager::addUnit(Sprite* sprite, Vector2D& pos, Vector2D& vel, std::shared_ptr<float> maxVel, std::shared_ptr<float> reactionRadius, std::shared_ptr<float> maxRotational, float maxAcc, std::string id, bool isPlayer)
 {
-	mUnitList.emplace(id, new KinematicUnit(sprite, pos, 1, vel, 0.0f, maxVel, maxAcc));
+	mpUnitList->emplace(id, new KinematicUnit(sprite, pos, 1, vel, 0.0f, maxVel, reactionRadius, maxRotational, maxAcc, isPlayer));
 	mUnitCount++;
 }
 
 void UnitManager::removeUnit(std::string id)
 {
-	delete mUnitList[id];
-	mUnitList.erase(id);
+	delete mpUnitList->at(id);
+	mpUnitList->erase(id);
 }
 
 void UnitManager::setUnitBehavior(BehaviorType type, std::string entityID, std::string targetID)
@@ -36,17 +35,23 @@ void UnitManager::setUnitBehavior(BehaviorType type, std::string entityID, std::
 	switch (type)
 	{
 		case DYNAMIC_ARRIVE:
-			mUnitList[entityID]->dynamicArrive(mUnitList[targetID]);
+			mpUnitList->at(entityID)->dynamicArrive(mpUnitList->at(targetID));
 			break;
 		case DYNAMIC_SEEK:
-			mUnitList[entityID]->dynamicSeek(mUnitList[targetID]);
+			mpUnitList->at(entityID)->dynamicSeek(mpUnitList->at(targetID));
+			break;
+		case WANDER_AND_SEEK:
+			mpUnitList->at(entityID)->wanderAndSeek(mpUnitList->at(targetID));
+			break;
+		case WANDER_AND_FLEE:
+			mpUnitList->at(entityID)->wanderAndFlee(mpUnitList->at(targetID));
 			break;
 	}
 }
 
 KinematicUnit* UnitManager::getUnit(std::string id)
 {
-	return mUnitList[id];
+	return mpUnitList->at(id);
 }
 
 bool UnitManager::deleteRandomAIUnit()
@@ -54,7 +59,7 @@ bool UnitManager::deleteRandomAIUnit()
 	std::string idCheck = "";
 
 	//if only the player is left, tell the message to exit the game
-	if (mUnitList.size() <= 1)
+	if (mpUnitList->size() <= 1)
 	{
 		return true;
 	}
@@ -62,8 +67,8 @@ bool UnitManager::deleteRandomAIUnit()
 	{
 		do
 		{
-			auto it = mUnitList.begin();
-			std::advance(it, rand() % mUnitList.size());
+			auto it = mpUnitList->begin();
+			std::advance(it, rand() % mpUnitList->size());
 
 			idCheck = it->first;
 
@@ -79,7 +84,7 @@ bool UnitManager::deleteRandomAIUnit()
 void UnitManager::update(double timePassed)
 {
 
-	for (std::map<std::string, KinematicUnit*>::iterator i = mUnitList.begin(); i != mUnitList.end(); ++i)
+	for (std::map<std::string, KinematicUnit*>::iterator i = mpUnitList->begin(); i != mpUnitList->end(); ++i)
 	{
 		i->second->update(timePassed);
 	}
@@ -87,7 +92,7 @@ void UnitManager::update(double timePassed)
 
 void UnitManager::draw()
 {
-	for (std::map<std::string, KinematicUnit*>::iterator i = mUnitList.begin(); i != mUnitList.end(); ++i)
+	for (std::map<std::string, KinematicUnit*>::iterator i = mpUnitList->begin(); i != mpUnitList->end(); ++i)
 	{
 		i->second->draw(gpGame->getGraphicsSystem()->getBackBuffer());
 	}
@@ -95,10 +100,11 @@ void UnitManager::draw()
 
 void UnitManager::cleanUp()
 {
-	for (std::map<std::string, KinematicUnit*>::iterator i = mUnitList.begin(); i != mUnitList.end(); ++i)
+	for (std::map<std::string, KinematicUnit*>::iterator i = mpUnitList->begin(); i != mpUnitList->end(); ++i)
 	{
 		delete i->second;
 	}
 
-	mUnitList.clear();
+	mpUnitList->clear();
+	delete mpUnitList;
 }
