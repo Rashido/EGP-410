@@ -9,7 +9,7 @@ class KinematicUnit;
 class AlignmentSteering :public Steering
 {
 public:
-	AlignmentSteering(KinematicUnit* pMover, std::map<std::string, KinematicUnit*>* unitList, float alignRadius = 75.0f);
+	AlignmentSteering(KinematicUnit* pMover, std::map<std::string, KinematicUnit*>* unitList, float alignRadius = 300.0f);
 	~AlignmentSteering() {};
 
 	virtual Steering* getSteering();

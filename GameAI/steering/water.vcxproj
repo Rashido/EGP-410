@@ -37,6 +37,7 @@
     <ClInclude Include="KinematicUnit.h" />
     <ClInclude Include="KinematicWanderSteering.h" />
     <ClInclude Include="PlayerMoveToMessage.h" />
+    <ClInclude Include="SeperationSteering.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="StateManager.h" />
@@ -52,6 +53,7 @@
     <ClCompile Include="AddWanderAndFleeAIMessage.cpp" />
     <ClCompile Include="AddWanderAndSeekAIMessage.cpp" />
     <ClCompile Include="AlignmentSteering.cpp" />
+    <ClCompile Include="CohesionSteering.cpp" />
     <ClCompile Include="CollisionAvoidanceSteering.cpp" />
     <ClCompile Include="DeleteRandomAIMessage.cpp" />
     <ClCompile Include="DynamicArriveSteering.cpp" />
@@ -72,6 +74,7 @@
     <ClCompile Include="KinematicWanderSteering.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerMoveToMessage.cpp" />
+    <ClCompile Include="SeperationSteering.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="StateManager.cpp" />

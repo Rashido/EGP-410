@@ -1,16 +1,16 @@
-#include "AlignmentSteering.h"
+#include "SeperationSteering.h"
 
 #include "KinematicUnit.h"
 #include "UnitManager.h"
 
-AlignmentSteering::AlignmentSteering(KinematicUnit* pMover, std::map<std::string, KinematicUnit*>* unitList, float alignRadius)
+SeperationSteering::SeperationSteering(KinematicUnit* pMover, std::map<std::string, KinematicUnit*>* unitList, float seperationRadius)
 {
 	mpMover = pMover;
 	mpUnitList = unitList;
-	mAlignRadius = alignRadius;
+	mAlignRadius = seperationRadius;
 }
 
-Steering* AlignmentSteering::getSteering()
+Steering* SeperationSteering::getSteering()
 {
 	for (auto it : *mpUnitList)
 	{
@@ -18,8 +18,7 @@ Steering* AlignmentSteering::getSteering()
 		{
 			if ((mpMover->getPosition() - it.second->getPosition()).getLength() < mAlignRadius)
 			{
-				mLinear += it.second->getVelocity();
-				++mNeighborCount;
+				mLinear += mpMover->getPosition() - it.second->getPosition();
 			}
 		}
 	}
