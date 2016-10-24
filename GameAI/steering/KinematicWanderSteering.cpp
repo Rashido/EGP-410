@@ -5,7 +5,7 @@
 KinematicWanderSteering::KinematicWanderSteering(KinematicUnit *pMover)
 :mpMover(pMover)
 {
-	mApplyDirectly = true;
+	mApplyDirectly = false;
 }
 
 Steering* KinematicWanderSteering::getSteering()

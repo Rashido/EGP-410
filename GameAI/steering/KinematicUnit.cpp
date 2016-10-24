@@ -53,22 +53,14 @@ void KinematicUnit::update(float time)
 	Vector2D tempPos = mPosition;
 
 	Steering* steering;
-	//check for collision with other units
-	mpCollisionAvoidance->updateSteering();
-	if (!mPlayer && mpCollisionAvoidance->getDanger()) //if in danger set steering to avoidance
+
+	if (mpCurrentSteering != NULL)
 	{
-		steering = mpCollisionAvoidance;		
+		steering = mpCurrentSteering->getSteering();
 	}
-	else //otherwise proceed normally
+	else
 	{
-		if (mpCurrentSteering != NULL)
-		{
-			steering = mpCurrentSteering->getSteering();
-		}
-		else
-		{
-			steering = &gNullSteering;
-		}
+		steering = &gNullSteering;
 	}
 
 	if( steering->shouldApplyDirectly() )
@@ -128,6 +120,7 @@ void KinematicUnit::update(float time)
 
 		mVelocity = newVel;
 	}
+
 	//move the unit using current velocities
 	Kinematic::update( time );
 	//calculate new velocities
@@ -139,7 +132,7 @@ void KinematicUnit::update(float time)
 	GRAPHICS_SYSTEM->wrapCoordinates( mPosition );
 
 	//set the orientation to match the direction of travel
-	//setNewOrientation();
+	setNewOrientation();
 }
 
 bool KinematicUnit::checkCollisionWithWalls()
@@ -226,6 +219,6 @@ void KinematicUnit::wanderAndFlee(KinematicUnit* pTarget)
 
 void KinematicUnit::boid()
 {
-	GroupAlignmentSteering* pBoidSteering = new GroupAlignmentSteering(this, gpGame->getUnitManager()->getMap(), 25);
+	GroupAlignmentSteering* pBoidSteering = new GroupAlignmentSteering(this, gpGame->getUnitManager()->getMap(), 200);
 	setSteering(pBoidSteering);
 }

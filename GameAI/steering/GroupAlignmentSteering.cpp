@@ -9,6 +9,8 @@
 
 GroupAlignmentSteering::GroupAlignmentSteering(KinematicUnit* pMover, std::map<std::string, KinematicUnit*>* unitList, float reactionRadius)
 {
+	mApplyDirectly = false;
+
 	mpMover = pMover;
 	mpUnitList = unitList;
 	mReactionRadius = reactionRadius;
@@ -37,6 +39,8 @@ Steering* GroupAlignmentSteering::getSteering()
 	mLinear += mpAlignment->getLinear() + mpSeperation->getLinear() + mpCohesion->getLinear() + mpWander->getLinear();
 	mLinear.normalize();
 	mLinear *= mpMover->getMaxVelocity();
+
+	mAngular = 0;
 
 	return this;
 }

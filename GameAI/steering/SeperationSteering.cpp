@@ -12,21 +12,25 @@ SeperationSteering::SeperationSteering(KinematicUnit* pMover, std::map<std::stri
 
 Steering* SeperationSteering::getSteering()
 {
+	int neighborCount = 0;
+
 	for (auto it : *mpUnitList)
 	{
 		if (it.first != "player" && it.second != mpMover)
 		{
-			if ((mpMover->getPosition() - it.second->getPosition()).getLength() < mAlignRadius)
+			if ((mpMover->getPosition() - it.second->getPosition()).getLength() < mAlignRadius && 
+				(mpMover->getPosition() - it.second->getPosition()).getLength() > -mAlignRadius)
 			{
 				mLinear += mpMover->getPosition() - it.second->getPosition();
+				++neighborCount;
 			}
 		}
 	}
 
-	if (mNeighborCount == 0)
+	if (neighborCount == 0)
 		return this;
 
-	mLinear /= mNeighborCount;
+	mLinear /= neighborCount;
 	mLinear.normalize();
 	return this;
 }

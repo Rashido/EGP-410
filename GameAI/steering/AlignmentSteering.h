@@ -18,7 +18,6 @@ private:
 	KinematicUnit* mpMover;
 	std::map<std::string, KinematicUnit*>* mpUnitList;
 	float mAlignRadius;
-	int mNeighborCount = 0;
 };
 
 #endif

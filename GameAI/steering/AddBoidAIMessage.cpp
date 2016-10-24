@@ -18,10 +18,17 @@ AddBoidAIMessage::~AddBoidAIMessage()
 
 void AddBoidAIMessage::process()
 {
-	std::string id = "ai" + std::to_string(gpGame->getUnitManager()->getUnitCount());
-	Vector2D pos = Vector2D(500, 400);
-	Vector2D vel = Vector2D(0.0f, 0.0f);
+	std::string id;
+	Vector2D pos;
+	Vector2D vel;
 
-	gpGame->getUnitManager()->addUnit(gpGame->getSpriteManager()->getSprite(AI_ICON_SPRITE_ID), pos, vel, gpGame->getStateManager()->getVelocity(), gpGame->getStateManager()->getRadius(), gpGame->getStateManager()->getAngularVelocity(), 100.0f, id);
-	gpGame->getUnitManager()->setUnitBehavior(BOID, id, "");
+	for (int i = 0; i < 3; ++i)
+	{
+		id = "ai" + std::to_string(gpGame->getUnitManager()->getUnitCount());
+		pos = Vector2D(400 + (i*60), 300 + (i*60));
+		vel = Vector2D(0.0f, 0.0f);
+
+		gpGame->getUnitManager()->addUnit(gpGame->getSpriteManager()->getSprite(AI_ICON_SPRITE_ID), pos, vel, gpGame->getStateManager()->getVelocity(), gpGame->getStateManager()->getRadius(), gpGame->getStateManager()->getAngularVelocity(), 100.0f, id);
+		gpGame->getUnitManager()->setUnitBehavior(BOID, id, "");
+	}	
 }

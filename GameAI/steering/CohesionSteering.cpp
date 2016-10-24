@@ -12,22 +12,25 @@ CohesionSteering::CohesionSteering(KinematicUnit* pMover, std::map<std::string, 
 
 Steering* CohesionSteering::getSteering()
 {
+	int neighborCount = 0;
+
 	for (auto it : *mpUnitList)
 	{
 		if (it.first != "player" && it.second != mpMover)
 		{
-			if ((mpMover->getPosition() - it.second->getPosition()).getLength() < mCohesionRadius)
+			if ((mpMover->getPosition() - it.second->getPosition()).getLength() < mCohesionRadius && 
+				(mpMover->getPosition() - it.second->getPosition()).getLength() > -mCohesionRadius)
 			{
 				mLinear += it.second->getPosition();
-				++mNeighborCount;
+				++neighborCount;
 			}
 		}
 	}
 
-	if (mNeighborCount == 0)
+	if (neighborCount == 0)
 		return this;
 
-	mLinear /= mNeighborCount;
+	mLinear /= neighborCount;
 	mLinear = mLinear - mpMover->getPosition();
 	mLinear.normalize();
 	return this;
