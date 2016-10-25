@@ -34,9 +34,11 @@ Steering* GroupAlignmentSteering::getSteering()
 	mpAlignment->getSteering();
 	mpSeperation->getSteering();
 	mpCohesion->getSteering();
-	mpWander->getSteering();
+	//mpWander->getSteering();
 
-	mLinear += mpAlignment->getLinear() + mpSeperation->getLinear() + mpCohesion->getLinear() + mpWander->getLinear();
+	//mpWander->setLinear(mpWander->getLinear().normalize());
+
+	mLinear += mpSeperation->getLinear();// + mpCohesion->getLinear(); //+ mpWander->getLinear(); mpAlignment->getLinear()
 	mLinear.normalize();
 	mLinear *= mpMover->getMaxVelocity();
 

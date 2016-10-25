@@ -6,7 +6,7 @@
 
 class KinematicUnit;
 
-const float MAX_WANDER_AND_SEEK_ROTATION = 1.0f;
+const float MAX_WANDER_AND_SEEK_ROTATION = 120.0f;
 
 class WanderAndSeekSteering :public Steering
 {

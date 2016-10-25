@@ -165,7 +165,7 @@ void KinematicUnit::setSteering( Steering* pSteering )
 }
 
 void KinematicUnit::setNewOrientation()
-{ 
+{
 	mOrientation = getOrientationFromVelocity( mOrientation, mVelocity ); 
 }
 

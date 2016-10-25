@@ -13,6 +13,7 @@ SeperationSteering::SeperationSteering(KinematicUnit* pMover, std::map<std::stri
 Steering* SeperationSteering::getSteering()
 {
 	int neighborCount = 0;
+	mLinear = Vector2D(0, 0);
 
 	for (auto it : *mpUnitList)
 	{

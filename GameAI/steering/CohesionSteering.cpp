@@ -13,6 +13,7 @@ CohesionSteering::CohesionSteering(KinematicUnit* pMover, std::map<std::string, 
 Steering* CohesionSteering::getSteering()
 {
 	int neighborCount = 0;
+	mLinear = Vector2D(0, 0);
 
 	for (auto it : *mpUnitList)
 	{

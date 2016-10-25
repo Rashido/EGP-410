@@ -26,7 +26,7 @@ public:
 	void setState(ManagerState state);
 	inline void toggleActive() { mActive = !mActive; };
 
-	inline std::shared_ptr<float> getVelocity() { return mpEnemyVel; };
+	inline std::shared_ptr<float> getVelocity() { return mpEnemyVel; }; 
 	inline std::shared_ptr<float> getRadius(){ return mpEnemyRadius; };
 	inline std::shared_ptr<float> getAngularVelocity() { return mpEnemyAngularVel; };
 	inline std::shared_ptr<bool> getCollisionBoxes() { return mpShowCollisionBoxes; };
