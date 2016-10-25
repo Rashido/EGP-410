@@ -110,11 +110,11 @@ void KinematicUnit::update(float time)
 		{
 			if (mBounceVertically)
 			{
-				newVel = Vector2D(mVelocity.getX(), -(mVelocity.getY()));
+				newVel = Vector2D(mVelocity.getX(), -(mVelocity.getY() * 1.5));
 			}
 			else
 			{
-				newVel = Vector2D(-(mVelocity.getX()), mVelocity.getY());
+				newVel = Vector2D(-(mVelocity.getX() * 1.5), mVelocity.getY());
 			}
 		}
 
@@ -129,7 +129,7 @@ void KinematicUnit::update(float time)
 	tempPos = mPosition - tempPos;
 	mHitbox.update(tempPos.getX(), tempPos.getY());
 	//move to oposite side of screen if we are off
-	GRAPHICS_SYSTEM->wrapCoordinates( mPosition );
+	//GRAPHICS_SYSTEM->wrapCoordinates( mPosition );
 
 	//set the orientation to match the direction of travel
 	setNewOrientation();
@@ -219,6 +219,6 @@ void KinematicUnit::wanderAndFlee(KinematicUnit* pTarget)
 
 void KinematicUnit::boid()
 {
-	GroupAlignmentSteering* pBoidSteering = new GroupAlignmentSteering(this, gpGame->getUnitManager()->getMap(), 200);
+	GroupAlignmentSteering* pBoidSteering = new GroupAlignmentSteering(this, gpGame->getUnitManager()->getMap());
 	setSteering(pBoidSteering);
 }

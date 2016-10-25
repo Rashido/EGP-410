@@ -21,7 +21,7 @@ class KinematicUnit;
 class GroupAlignmentSteering :public Steering
 {
 public:
-	GroupAlignmentSteering(KinematicUnit* pMover, std::map<std::string, KinematicUnit*>* unitList, float reactionRadius = 300.0f);
+	GroupAlignmentSteering(KinematicUnit* pMover, std::map<std::string, KinematicUnit*>* unitList);
 	~GroupAlignmentSteering();
 
 	virtual Steering* getSteering();
@@ -29,12 +29,10 @@ public:
 private:
 	KinematicUnit* mpMover;
 	std::map<std::string, KinematicUnit*>* mpUnitList;
-	float mReactionRadius;
 	
 	Steering* mpAlignment;
 	Steering* mpSeperation;
 	Steering* mpCohesion;
-	Steering* mpWander;
 };
 
 #endif

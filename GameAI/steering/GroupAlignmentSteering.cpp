@@ -7,18 +7,16 @@
 
 #include "KinematicUnit.h"
 
-GroupAlignmentSteering::GroupAlignmentSteering(KinematicUnit* pMover, std::map<std::string, KinematicUnit*>* unitList, float reactionRadius)
+GroupAlignmentSteering::GroupAlignmentSteering(KinematicUnit* pMover, std::map<std::string, KinematicUnit*>* unitList)
 {
 	mApplyDirectly = false;
 
 	mpMover = pMover;
 	mpUnitList = unitList;
-	mReactionRadius = reactionRadius;
 
-	mpAlignment = new AlignmentSteering(mpMover, mpUnitList, mReactionRadius);
-	mpSeperation = new SeperationSteering(mpMover, mpUnitList, mReactionRadius);
-	mpCohesion = new CohesionSteering(mpMover, mpUnitList, mReactionRadius);
-	mpWander = new KinematicWanderSteering(mpMover);
+	mpAlignment = new AlignmentSteering(mpMover, mpUnitList);
+	mpSeperation = new SeperationSteering(mpMover, mpUnitList);
+	mpCohesion = new CohesionSteering(mpMover, mpUnitList);
 }
 
 GroupAlignmentSteering::~GroupAlignmentSteering()
@@ -26,7 +24,6 @@ GroupAlignmentSteering::~GroupAlignmentSteering()
 	delete mpAlignment;
 	delete mpSeperation;
 	delete mpCohesion;
-	delete mpWander;
 }
 
 Steering* GroupAlignmentSteering::getSteering()
@@ -34,11 +31,8 @@ Steering* GroupAlignmentSteering::getSteering()
 	mpAlignment->getSteering();
 	mpSeperation->getSteering();
 	mpCohesion->getSteering();
-	//mpWander->getSteering();
 
-	//mpWander->setLinear(mpWander->getLinear().normalize());
-
-	mLinear += mpSeperation->getLinear();// + mpCohesion->getLinear(); //+ mpWander->getLinear(); mpAlignment->getLinear()
+	mLinear = mpCohesion->getLinear() * 2 + mpSeperation->getLinear() * 3.5 + mpAlignment->getLinear() * 2;
 	mLinear.normalize();
 	mLinear *= mpMover->getMaxVelocity();
 

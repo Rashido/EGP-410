@@ -9,7 +9,7 @@ class KinematicUnit;
 class SeperationSteering :public Steering
 {
 public:
-	SeperationSteering(KinematicUnit* pMover, std::map<std::string, KinematicUnit*>* unitList, float seperationRadius = 300.0f);
+	SeperationSteering(KinematicUnit* pMover, std::map<std::string, KinematicUnit*>* unitList, float seperationRadius = 60.0f);
 	SeperationSteering() {};
 
 	virtual Steering* getSteering();

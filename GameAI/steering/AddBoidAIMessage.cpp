@@ -22,7 +22,7 @@ void AddBoidAIMessage::process()
 	Vector2D pos;
 	Vector2D vel;
 
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < 5; ++i)
 	{
 		id = "ai" + std::to_string(gpGame->getUnitManager()->getUnitCount());
 		pos = Vector2D(400 + (i*30), 300 + (i*30));
