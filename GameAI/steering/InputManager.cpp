@@ -43,13 +43,13 @@ void InputManager::update()
 	ALLEGRO_MOUSE_STATE mouseState;
 	al_get_mouse_state(&mouseState);
 
-	//checks for clicks and moves player unit to mouse location
-	if (al_mouse_button_down(&mouseState, 1))//left mouse click
-	{
-		Vector2D pos(mouseState.x, mouseState.y);
-		GameMessage* pMessage = new PlayerMoveToMessage(pos);
-		gpGame->getMessageManager()->addMessage(pMessage, 0);
-	}
+	////checks for clicks and moves player unit to mouse location
+	//if (al_mouse_button_down(&mouseState, 1))//left mouse click
+	//{
+	//	Vector2D pos(mouseState.x, mouseState.y);
+	//	GameMessage* pMessage = new PlayerMoveToMessage(pos);
+	//	gpGame->getMessageManager()->addMessage(pMessage, 0);
+	//}
 
 	//create mouse text
 	std::stringstream mousePos;
