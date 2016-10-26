@@ -2,6 +2,7 @@
 #define GROUP_ALIGNMENT_STEERING
 
 #include "Steering.h"
+#include <memory>
 #include <map>
 
 /************************************************
@@ -21,7 +22,8 @@ class KinematicUnit;
 class GroupAlignmentSteering :public Steering
 {
 public:
-	GroupAlignmentSteering(KinematicUnit* pMover, std::map<std::string, KinematicUnit*>* unitList);
+	GroupAlignmentSteering(KinematicUnit* pMover, std::map<std::string, KinematicUnit*>* unitList, 
+		std::shared_ptr<float> alignmentWeight, std::shared_ptr<float> seperationWeight, std::shared_ptr<float> cohesionWeight);
 	~GroupAlignmentSteering();
 
 	virtual Steering* getSteering();
@@ -34,9 +36,9 @@ private:
 	Steering* mpSeperation;
 	Steering* mpCohesion;
 
-	float mAlignmentWeight;
-	float mSeperationWeight;
-	float mCohesionWeight;
+	std::shared_ptr<float> mpAlignmentWeight;
+	std::shared_ptr<float> mpSeperationWeight;
+	std::shared_ptr<float> mpCohesionWeight;
 };
 
 #endif

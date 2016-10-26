@@ -7,7 +7,11 @@
 
 #include "KinematicUnit.h"
 
-GroupAlignmentSteering::GroupAlignmentSteering(KinematicUnit* pMover, std::map<std::string, KinematicUnit*>* unitList)
+GroupAlignmentSteering::GroupAlignmentSteering(KinematicUnit* pMover, std::map<std::string, KinematicUnit*>* unitList,
+	std::shared_ptr<float> alignmentWeight, std::shared_ptr<float> seperationWeight, std::shared_ptr<float> cohesionWeight):
+	 mpAlignmentWeight(alignmentWeight)
+	,mpCohesionWeight(cohesionWeight)
+	,mpSeperationWeight(seperationWeight)
 {
 	mApplyDirectly = false;
 
@@ -17,10 +21,6 @@ GroupAlignmentSteering::GroupAlignmentSteering(KinematicUnit* pMover, std::map<s
 	mpAlignment = new AlignmentSteering(mpMover, mpUnitList);
 	mpSeperation = new SeperationSteering(mpMover, mpUnitList);
 	mpCohesion = new CohesionSteering(mpMover, mpUnitList);
-
-	mAlignmentWeight = 2;
-	mSeperationWeight = 3.5;
-	mCohesionWeight = 2;
 }
 
 GroupAlignmentSteering::~GroupAlignmentSteering()
@@ -36,7 +36,7 @@ Steering* GroupAlignmentSteering::getSteering()
 	mpSeperation->getSteering();
 	mpCohesion->getSteering();
 
-	mLinear = mpCohesion->getLinear() * mCohesionWeight + mpSeperation->getLinear() * mSeperationWeight + mpAlignment->getLinear() * mAlignmentWeight;
+	mLinear = mpCohesion->getLinear() * *mpCohesionWeight + mpSeperation->getLinear() * *mpSeperationWeight + mpAlignment->getLinear() * *mpAlignmentWeight;
 	mLinear.normalize();
 	mLinear *= mpMover->getMaxVelocity();
 

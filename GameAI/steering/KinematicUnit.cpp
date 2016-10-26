@@ -4,6 +4,7 @@
 #include "UnitManager.h"
 #include "Sprite.h"
 #include "GraphicsSystem.h"
+#include "StateManager.h"
 #include "WallManager.h"
 #include "Steering.h"
 #include "KinematicSeekSteering.h"
@@ -218,6 +219,8 @@ void KinematicUnit::wanderAndFlee(KinematicUnit* pTarget)
 
 void KinematicUnit::boid()
 {
-	GroupAlignmentSteering* pBoidSteering = new GroupAlignmentSteering(this, gpGame->getUnitManager()->getMap());
+	GroupAlignmentSteering* pBoidSteering = new GroupAlignmentSteering(this, gpGame->getUnitManager()->getMap(), gpGame->getStateManager()->getAlignmentWeight(),
+		gpGame->getStateManager()->getSeperationWeight(), gpGame->getStateManager()->getCohesionWeight());
+
 	setSteering(pBoidSteering);
 }
