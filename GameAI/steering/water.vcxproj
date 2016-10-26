@@ -32,6 +32,7 @@
     <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="GroupAlignmentSteering.h" />
     <ClInclude Include="Hitbox.h" />
+    <ClInclude Include="Hitcircle.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Kinematic.h" />
     <ClInclude Include="KinematicArriveSteering.h" />
@@ -70,6 +71,7 @@
     <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="GroupAlignmentSteering.cpp" />
     <ClCompile Include="Hitbox.cpp" />
+    <ClCompile Include="Hitcircle.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Kinematic.cpp" />
     <ClCompile Include="KinematicArriveSteering.cpp" />

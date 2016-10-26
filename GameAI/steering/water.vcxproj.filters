@@ -112,6 +112,9 @@
     <ClCompile Include="AddBoidAIMessage.cpp">
       <Filter>Source Files\Messaging</Filter>
     </ClCompile>
+    <ClCompile Include="Hitcircle.cpp">
+      <Filter>Source Files\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsBuffer.h">
@@ -224,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="AddBoidAIMessage.h">
       <Filter>Header Files\Messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="Hitcircle.h">
+      <Filter>Header Files\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

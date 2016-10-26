@@ -65,3 +65,8 @@ void Hitbox::update(float deltaX, float deltaY)
 	minY += deltaY;
 	maxY += deltaY;
 }
+
+Vector2D Hitbox::getPosition()
+{
+	return Vector2D(minX + ((maxX - minX) / 2), minY + ((maxY - minY) / 2));
+}

@@ -33,7 +33,7 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 , mPlayer(isPlayer)
 {
 	mpCollisionAvoidance = new CollisionAvoidanceSteering(this, gpGame->getUnitManager()->getMap());
-	mHitbox = Hitbox(Vector2D(position.getX()-16, position.getY()-16), 32, 32); //32 is the length and width of the arrow sprite
+	mHitcircle = Hitcircle(Vector2D(position.getX(), position.getY()), 16); //32 is the length and width of the arrow sprite
 }
 
 KinematicUnit::~KinematicUnit()
@@ -45,7 +45,6 @@ KinematicUnit::~KinematicUnit()
 void KinematicUnit::draw( GraphicsBuffer* pBuffer )
 {
 	mpSprite->draw( *pBuffer, mPosition.getX(), mPosition.getY(), mOrientation );
-	mHitbox.draw();
 }
 
 void KinematicUnit::update(float time)
@@ -127,7 +126,7 @@ void KinematicUnit::update(float time)
 	calcNewVelocities( *steering, time, *mMaxVelocity, *mMaxRotationalVelocity );
 	//update hitbox location
 	tempPos = mPosition - tempPos;
-	mHitbox.update(tempPos.getX(), tempPos.getY());
+	mHitcircle.update(tempPos.getX(), tempPos.getY());
 	//move to oposite side of screen if we are off
 	//GRAPHICS_SYSTEM->wrapCoordinates( mPosition );
 
@@ -139,7 +138,7 @@ bool KinematicUnit::checkCollisionWithWalls()
 {
 	for (int i = 0; i < gpGame->getWallManager()->getNumOfWalls(); i++)
 	{
-		if (mHitbox.checkCollision(gpGame->getWallManager()->getWall(i)->getHitbox()))
+		if (mHitcircle.checkCollision(gpGame->getWallManager()->getWall(i)->getHitbox()))
 		{
 			if (gpGame->getWallManager()->getWall(i)->getBounceType() == VERTICAL)
 			{

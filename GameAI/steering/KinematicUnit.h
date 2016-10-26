@@ -3,7 +3,7 @@
 
 #include "Kinematic.h"
 #include "Steering.h"
-#include "Hitbox.h"
+#include "Hitcircle.h"
 
 #include <memory>
 
@@ -70,7 +70,7 @@ private:
 	std::shared_ptr<float> mReactionRadius;
 	std::shared_ptr<float> mMaxRotationalVelocity;
 	bool mBounceVertically;//if false bounce horizontally
-	Hitbox mHitbox;
+	Hitcircle mHitcircle;
 
 	bool mPlayer; //am I a player?
 

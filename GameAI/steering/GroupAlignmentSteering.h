@@ -33,6 +33,10 @@ private:
 	Steering* mpAlignment;
 	Steering* mpSeperation;
 	Steering* mpCohesion;
+
+	float mAlignmentWeight;
+	float mSeperationWeight;
+	float mCohesionWeight;
 };
 
 #endif

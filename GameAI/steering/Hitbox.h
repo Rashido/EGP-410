@@ -18,6 +18,10 @@ public:
 	void update(float deltaX, float deltaY);
 	void draw();
 
+	Vector2D getPosition(); //return boxes position, assumes position is center point
+	inline float getWidth() { return maxX - minX; };
+	inline float getHeight() { return maxY - minY; };
+
 private:
 	float minX;
 	float minY;
