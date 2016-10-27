@@ -17,8 +17,21 @@ mpCohesionWeight(new float(defaultCohesionWeight)),
 mpSeperationWeight(new float(defaultSeperateWeight))
 {
 	//init strings
-	setState(VELOCITY); //note to self, mActive is defaultly true so this will still init mCurrentModeText
+	setState(VELOCITY); //note to self, mActive is defaultly true so this will still work
 	
+	//read save data
+	std::ifstream saveData("SaveData.txt");
+	if (saveData.is_open())
+	{
+		saveData >> *mpAlignmentWeight;
+
+		saveData >> *mpCohesionWeight;
+
+		saveData >> *mpSeperationWeight;
+
+		saveData.close();
+	}
+
 	std::stringstream ss;
 
 	ss << std::fixed << std::setprecision(1) << *mpEnemyVel;

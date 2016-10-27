@@ -46,6 +46,7 @@ KinematicUnit::~KinematicUnit()
 void KinematicUnit::draw( GraphicsBuffer* pBuffer )
 {
 	mpSprite->draw( *pBuffer, mPosition.getX(), mPosition.getY(), mOrientation );
+	mHitcircle.draw();
 }
 
 void KinematicUnit::update(float time)
@@ -81,41 +82,15 @@ void KinematicUnit::update(float time)
 	if (checkCollisionWithWalls())
 	{
 		Vector2D newVel;
-		if (mPlayer) //player bounce behavior. A bit wonky but gets the job done
+
+		 //normal behavior for AI units
+		if (mBounceVertically)
 		{
-			if (mBounceVertically)
-			{
-				GameMessage* pMessage;
-				if (mPosition.getY() < 500)
-					pMessage = new PlayerMoveToMessage(Vector2D(mPosition.getX(), mPosition.getY() + 50));
-				else
-					pMessage = new PlayerMoveToMessage(Vector2D(mPosition.getX(), mPosition.getY() - 50));
-
-				gpGame->getMessageManager()->addMessage(pMessage, 0);
-				newVel = Vector2D(mVelocity.getX(), -(mVelocity.getY()*2));
-			}
-			else
-			{
-				GameMessage* pMessage;
-				if (mPosition.getX() < 400)
-					pMessage = new PlayerMoveToMessage(Vector2D(mPosition.getX() + 50, mPosition.getY()));
-				else
-					pMessage = new PlayerMoveToMessage(Vector2D(mPosition.getX() - 50, mPosition.getY()));
-
-				gpGame->getMessageManager()->addMessage(pMessage, 0);
-				newVel = Vector2D(-(mVelocity.getX()*2), mVelocity.getY());
-			}
+			newVel = Vector2D(mVelocity.getX(), -(mVelocity.getY() * 1.5));
 		}
-		else //normal behavior for AI units
+		else
 		{
-			if (mBounceVertically)
-			{
-				newVel = Vector2D(mVelocity.getX(), -(mVelocity.getY() * 1.5));
-			}
-			else
-			{
-				newVel = Vector2D(-(mVelocity.getX() * 1.5), mVelocity.getY());
-			}
+			newVel = Vector2D(-(mVelocity.getX() * 1.5), mVelocity.getY());
 		}
 
 		mVelocity = newVel;

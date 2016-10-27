@@ -3,12 +3,20 @@
 
 #include <cmath>
 
-Hitcircle::Hitcircle()
+#include "Game.h"
+
+#include "StateManager.h"
+
+#include <allegro5\allegro_primitives.h>
+
+Hitcircle::Hitcircle():
+mpShowCircles(gpGame->getStateManager()->getCollisionBoxes())
 {
 
 }
 
-Hitcircle::Hitcircle(Vector2D position, float radius)
+Hitcircle::Hitcircle(Vector2D position, float radius):
+mpShowCircles(gpGame->getStateManager()->getCollisionBoxes())
 {
 	mPos = position;
 	mRadius = radius;
@@ -50,4 +58,12 @@ void Hitcircle::update(float deltaX, float deltaY)
 {
 	mPos.setX(mPos.getX() + deltaX);
 	mPos.setY(mPos.getY() + deltaY);
+}
+
+void Hitcircle::draw()
+{
+	if (*mpShowCircles == true)
+	{
+		al_draw_circle(mPos.getX(), mPos.getY(), mRadius, al_map_rgb(0, 255, 0), 5);
+	}
 }

@@ -6,6 +6,8 @@
 
 class KinematicUnit;
 
+//part of the overall group steering class, handles the cohesion part of the boid steering
+
 class CohesionSteering :public Steering
 {
 public:

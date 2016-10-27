@@ -3,6 +3,8 @@
 
 #include "GameMessage.h"
 
+//adds a dynamic AI unit 200 units away from the player
+
 class AddDynamicSeekAIMessage :public GameMessage
 {
 public:

@@ -54,7 +54,7 @@ void Hitbox::draw()
 {
 	if (*mpShowBoxes == true)
 	{
-		al_draw_rectangle(minX, minY, maxX, maxY, al_map_rgb(255, 0, 0), 3.0f);
+		al_draw_rectangle(minX, minY, maxX, maxY, al_map_rgb(0, 255, 0), 3.0f);
 	}	
 }
 

@@ -6,6 +6,8 @@
 
 class KinematicUnit;
 
+//part of the overall group steering class, handles the seperation section of the boid steering
+
 class SeperationSteering :public Steering
 {
 public:

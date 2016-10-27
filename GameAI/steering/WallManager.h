@@ -20,7 +20,7 @@ public:
 	inline int getNumOfWalls() { return mWallList.size(); };
 
 private:
-	std::vector<Wall*> mWallList;
+	std::vector<Wall*> mWallList; 
 };
 
 #endif

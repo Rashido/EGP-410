@@ -6,6 +6,8 @@
 
 class KinematicUnit;
 
+//part of the overall group steering class, handles the alignment part of boid steering
+
 class AlignmentSteering :public Steering
 {
 public:

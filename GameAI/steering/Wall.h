@@ -19,7 +19,7 @@ public:
 	~Wall();
 
 	inline Hitbox& getHitbox() { return mHitbox; };
-	inline BounceType getBounceType() { return mBounceType; };
+	inline BounceType getBounceType() { return mBounceType; }; //gets flag that determines how a unit should bounch upon collision with the wall
 	void draw();
 
 private:

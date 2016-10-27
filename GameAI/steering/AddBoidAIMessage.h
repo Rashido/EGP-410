@@ -3,6 +3,8 @@
 
 #include "GameMessage.h"
 
+//this message will add 5 boids to the middle of the screen
+
 class AddBoidAIMessage :public GameMessage
 {
 public:
