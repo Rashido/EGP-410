@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Pathfinder.h"
+
 class GridGraph;
 class GridVisualizer;
 class GraphicsBuffer;

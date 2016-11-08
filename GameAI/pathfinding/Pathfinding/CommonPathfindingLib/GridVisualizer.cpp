@@ -1,9 +1,11 @@
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_font.h>
 #include "GridVisualizer.h"
 #include "GraphicsSystem.h"
 #include "GraphicsBuffer.h"
 #include "Grid.h"
 #include "Vector2D.h"
+#include "Game.h"
 
 GridVisualizer::GridVisualizer( Grid* pGrid )
 :mpGrid(pGrid)
@@ -93,6 +95,15 @@ void GridVisualizer::draw( GraphicsBuffer& dest )
 		{
 			Vector2D ulPos = mpGrid->getULCornerOfSquare( theIndices[i] );
 			al_draw_filled_rectangle( ulPos.getX(), ulPos.getY(), ulPos.getX() + squareSize, ulPos.getY() + squareSize, iter->first );
+
+			if (iter->first.r == 1 && iter->first.g == 255 && iter->first.b == 128)
+			{
+				al_draw_text(gpGame->getFont(), al_map_rgb(255, 255, 255), ulPos.getX(), ulPos.getY(), ALLEGRO_ALIGN_CENTER, "S");
+			}
+			else if (iter->first.r == 1 && iter->first.g == 128 && iter->first.b == 255)
+			{
+				al_draw_text(gpGame->getFont(), al_map_rgb(255, 255, 255), ulPos.getX(), ulPos.getY(), ALLEGRO_ALIGN_CENTER, "G");
+			}
 			//mpBuffer->fillRegion( ulPos, Vector2D( ulPos.getX() + squareSize, ulPos.getY() + squareSize ), iter->first );
 		}
 	}
