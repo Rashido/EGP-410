@@ -29,6 +29,7 @@ int main(void)
 	gpPerformanceTracker = new PerformanceTracker();
 
 	gpGame = new GameApp();
+	gpGameApp = dynamic_cast<GameApp*>(gpGame);
 
 	gpGame->init();
 
@@ -39,16 +40,6 @@ int main(void)
 
 	while( !shouldExit )
 	{
-		//get current keyboard state
-		ALLEGRO_KEYBOARD_STATE keyState;
-		al_get_keyboard_state( &keyState );
-
-		//if escape key was down then exit the loop
-		if( al_key_down( &keyState, ALLEGRO_KEY_ESCAPE ) )
-		{
-			gpGame->markForExit();
-		}
-
 		gpGame->beginLoop();
 		gpGame->processLoop();
 		shouldExit = gpGame->endLoop();
