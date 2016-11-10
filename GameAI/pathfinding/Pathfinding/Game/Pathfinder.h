@@ -21,6 +21,6 @@ public:
 
 protected:
 	Graph* mpGraph;
-	Path mPath;  //cached version of the calculated path
-	
+	Path mPath;  //holds every node that was searched through during pathfinding	
+	Path mShortestPath; //holds the shortest path found through pathfinding
 };

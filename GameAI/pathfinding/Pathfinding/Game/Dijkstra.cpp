@@ -34,12 +34,14 @@ const Path& Dijkstra::findPath(Node *pFrom, Node* pTo)
 #endif
 
 	mPath.clear();
+	mShortestPath.clear();
 
 	Node* pCurrentNode = NULL;
 	bool toNodeAdded = false;
 
 	while (pCurrentNode != pTo && nodesToVisit.size() > 0)
 	{
+		mPath.clear();
 		//get current node from front of list
 		pCurrentNode = nodesToVisit.front();
 		//remove node from list
@@ -77,12 +79,12 @@ const Path& Dijkstra::findPath(Node *pFrom, Node* pTo)
 		//goal has been reached, now iterate backwards through the nodes and their from references to determine the path		
 		if (toNodeAdded)
 		{
-			mPath.clear();
+			mShortestPath.clear();
 			Node* pPathNode = pTo; //start at goal
 
-			while (!mPath.containsNode(pPathNode)) //loop until path reaches starting position
+			while (!mShortestPath.containsNode(pPathNode)) //loop until path reaches starting position
 			{
-				mPath.addNode(pPathNode); //add current node to path	
+				mShortestPath.addNode(pPathNode); //add current node to path	
 				pPathNode = gpGameApp->getGridGraph()->getNode(pPathNode->getPrevNodeId()); //set the temp node to the previous node that connected to it
 			}
 		}	

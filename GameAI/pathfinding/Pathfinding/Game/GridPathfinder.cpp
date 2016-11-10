@@ -1,4 +1,5 @@
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
 #include "GridPathfinder.h"
 #include "GridGraph.h"
 #include "GridVisualizer.h"
@@ -25,6 +26,8 @@ GridPathfinder::~GridPathfinder()
 #ifdef VISUALIZE_PATH
 void GridPathfinder::drawVisualization( Grid* pGrid, GraphicsBuffer* pDest )
 {
+
+	//this is dean's code, handles drawing the nodes that were searched
 	if (mpVisualizer == NULL)
 	{
 		mpVisualizer = new GridVisualizer(pGrid);
@@ -54,6 +57,10 @@ void GridPathfinder::drawVisualization( Grid* pGrid, GraphicsBuffer* pDest )
 		mpVisualizer->addColor(mPath.peekNode(0)->getId(), startColor);
 		mpVisualizer->addColor(mPath.peekNode(numNodes - 1)->getId(), stopColor);
 	}
+
+	//this handles drawing the centerlines between the nodes that make the shortest path
+	
+
 
 	mpVisualizer->draw(*pDest);
 }
