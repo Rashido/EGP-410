@@ -88,7 +88,7 @@ void GridVisualizer::draw( GraphicsBuffer& dest )
 
 	//we need these so we can know which square is the start and goal
 	static ALLEGRO_COLOR startColor = al_map_rgb(1, 255, 128);
-	static ALLEGRO_COLOR stopColor = al_map_rgb(1, 128, 255);
+	static ALLEGRO_COLOR stopColor = al_map_rgb(255, 255, 0);
 
 	std::map< ALLEGRO_COLOR, std::vector<int>, AllegroColorCompare >::iterator iter;
 	for( iter = mColormap.begin(); iter != mColormap.end(); ++iter )

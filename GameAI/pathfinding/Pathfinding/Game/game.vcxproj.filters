@@ -78,6 +78,9 @@
     <ClInclude Include="GameMessage.h">
       <Filter>Header Files\Messages</Filter>
     </ClInclude>
+    <ClInclude Include="Dijkstra.h">
+      <Filter>Header Files\pathfinding</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMessageManager.cpp">
@@ -130,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="GameMessage.cpp">
       <Filter>Source Files\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="Dijkstra.cpp">
+      <Filter>Source Files\pathfinding</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

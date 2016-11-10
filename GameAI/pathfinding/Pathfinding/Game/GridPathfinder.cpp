@@ -36,7 +36,7 @@ void GridPathfinder::drawVisualization( Grid* pGrid, GraphicsBuffer* pDest )
 
 	static ALLEGRO_COLOR pathColor = al_map_rgb( 255, 64, 64 );
 	static ALLEGRO_COLOR startColor = al_map_rgb(1, 255, 128);
-	static ALLEGRO_COLOR stopColor = al_map_rgb(1, 128, 255);
+	static ALLEGRO_COLOR stopColor = al_map_rgb(255, 255, 0);
 
 	unsigned int numNodes = mPath.getNumNodes();
 	ALLEGRO_COLOR currentPathColor = pathColor;

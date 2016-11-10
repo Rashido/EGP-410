@@ -14,6 +14,10 @@ public:
 
 	const NODE_ID& getId() const {return mId;};
 
+	inline NODE_ID getPrevNodeId() const { return mPrevNodeId; };
+	inline void setPrevNodeId(NODE_ID prevId) { mPrevNodeId = prevId; };
+
 private:
 	const NODE_ID mId;
+	NODE_ID mPrevNodeId;
 };

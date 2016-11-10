@@ -58,8 +58,8 @@ const Path& DepthFirstPathfinder::findPath( Node* pFrom, Node* pTo )
 				!mPath.containsNode( pTempToNode ) && 
 				find(nodesToVisit.begin(), nodesToVisit.end(), pTempToNode ) == nodesToVisit.end() )
 			{
-				nodesToVisit.push_front( pTempToNode );//uncomment me for depth-first search
-				//nodesToVisit.push_back( pTempToNode );//uncomment me for breadth-first search
+				//nodesToVisit.push_front( pTempToNode );//uncomment me for depth-first search
+				nodesToVisit.push_back( pTempToNode );//uncomment me for breadth-first search
 				if( pTempToNode == pTo )
 				{
 					toNodeAdded = true;
