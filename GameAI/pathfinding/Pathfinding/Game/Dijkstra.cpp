@@ -74,18 +74,16 @@ const Path& Dijkstra::findPath(Node *pFrom, Node* pTo)
 			}
 		}
 
-
-		//goal has been reached, now iterate backwards through the nodes and their from references to determing the path
-		
+		//goal has been reached, now iterate backwards through the nodes and their from references to determine the path		
 		if (toNodeAdded)
 		{
 			mPath.clear();
 			Node* pPathNode = pTo; //start at goal
-			while (pPathNode != pFrom) //loop until path reaches starting position
-			{
-				mPath.addNode(pPathNode); //add current node to path
 
-				pPathNode = gpGameApp->getGridGraph()->getNode(pPathNode->getPrevNodeId());//set the temp node to the previous node that connected to it
+			while (!mPath.containsNode(pPathNode)) //loop until path reaches starting position
+			{
+				mPath.addNode(pPathNode); //add current node to path	
+				pPathNode = gpGameApp->getGridGraph()->getNode(pPathNode->getPrevNodeId()); //set the temp node to the previous node that connected to it
 			}
 		}	
 	}
