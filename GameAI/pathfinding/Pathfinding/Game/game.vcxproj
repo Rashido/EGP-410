@@ -79,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AStar.h" />
+    <ClInclude Include="ChangePathfindingMessage.h" />
     <ClInclude Include="Connection.h" />
     <ClInclude Include="DebugContent.h" />
     <ClInclude Include="DebugDisplay.h" />
@@ -100,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AStar.cpp" />
+    <ClCompile Include="ChangePathfindingMessage.cpp" />
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="DebugDisplay.cpp" />
     <ClCompile Include="DepthFirstPathfinder.cpp" />

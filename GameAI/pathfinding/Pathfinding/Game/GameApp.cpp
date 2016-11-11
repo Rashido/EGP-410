@@ -45,6 +45,23 @@ GameApp::~GameApp()
 	cleanup();
 }
 
+void GameApp::changePathfindType(PathfindType type)
+{
+	switch(type)
+	{
+	case DIJKSTRA:
+		mpPathfinder = mpDijkstra;
+		mpDebugDisplay->changePathfinderData(mpDijkstra);
+		mPathfindType = DIJKSTRA;
+		break;
+	case ASTAR:
+		mpPathfinder = mpAStar;
+		mpDebugDisplay->changePathfinderData(mpAStar);
+		mPathfindType = ASTAR;
+		break;
+	}
+}
+
 bool GameApp::init()
 {
 	bool retVal = Game::init();
@@ -70,7 +87,13 @@ bool GameApp::init()
 	//init the nodes and connections
 	mpGridGraph->init();
 
-	mpPathfinder = new AStar(mpGridGraph);
+	//init pathfinders
+	mpDijkstra = new Dijkstra(mpGridGraph);
+	mpAStar = new AStar(mpGridGraph);
+
+	//set default pathfinder to Dijkstra
+	mpPathfinder = mpDijkstra;
+	mPathfindType = DIJKSTRA;
 
 	//load buffers
 	mpGraphicsBufferManager->loadBuffer( BACKGROUND_ID, "wallpaper.bmp");
@@ -107,8 +130,11 @@ void GameApp::cleanup()
 	delete mpGridGraph;
 	mpGridGraph = NULL;
 
-	delete mpPathfinder;
-	mpPathfinder = NULL;
+	delete mpDijkstra;
+	mpDijkstra = NULL;
+
+	delete mpAStar;
+	mpAStar = NULL;
 
 	delete mpDebugDisplay;
 	mpDebugDisplay = NULL;

@@ -4,6 +4,7 @@
 
 #include "ExitGameMessage.h"
 #include "PathToMessage.h"
+#include "ChangePathfindingMessage.h"
 
 InputManager::InputManager()
 {
@@ -63,6 +64,18 @@ void InputManager::update()
 			{
 				//exit main game loop
 				GameMessage* pMessage = new ExitGameMessage();
+				gpGameApp->getMessageManager()->addMessage(pMessage, 0);
+			}
+
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_D)
+			{
+				GameMessage* pMessage = new ChangePathfindingMessage(DIJKSTRA, mStartPos, mGoalPos);
+				gpGameApp->getMessageManager()->addMessage(pMessage, 0);
+			}
+
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_A)
+			{
+				GameMessage* pMessage = new ChangePathfindingMessage(ASTAR, mStartPos, mGoalPos);
 				gpGameApp->getMessageManager()->addMessage(pMessage, 0);
 			}
 		}

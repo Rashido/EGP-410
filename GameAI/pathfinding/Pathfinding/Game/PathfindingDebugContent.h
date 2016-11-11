@@ -12,6 +12,8 @@ public:
 
 	std::string getDebugString();
 
+	void setPathfinder(GridPathfinder* pPathFinder);
+
 private:
 	GridPathfinder* mpPathfinder;
 };

@@ -5,20 +5,23 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 
-class DebugContent;
+class PathfindingDebugContent;
 class GraphicsBuffer;
+class GridPathfinder;
 
 class DebugDisplay:public Trackable
 {
 public:
-	DebugDisplay( const Vector2D& pos, DebugContent* pContent );
+	DebugDisplay( const Vector2D& pos, PathfindingDebugContent* pContent );
 	~DebugDisplay();
 
 	void draw( GraphicsBuffer* pBuffer );
 
+	void changePathfinderData(GridPathfinder* pPathfinder);
+
 private:
 	ALLEGRO_FONT* mpFont;
-	DebugContent* mpContent;
+	PathfindingDebugContent* mpContent;
 	Vector2D mPos;
 
 };

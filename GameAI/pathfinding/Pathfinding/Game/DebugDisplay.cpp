@@ -1,11 +1,13 @@
 #include "DebugDisplay.h"
 #include <allegro5/allegro_ttf.h>
 #include "GraphicsBuffer.h"
+#include "GridPathfinder.h"
 #include "DebugContent.h"
+#include "PathfindingDebugContent.h"
 
 using namespace std;
 
-DebugDisplay::DebugDisplay( const Vector2D& pos, DebugContent* pContent )
+DebugDisplay::DebugDisplay( const Vector2D& pos, PathfindingDebugContent* pContent )
 	:mPos(pos)
 	,mpContent(pContent)
 {
@@ -29,4 +31,9 @@ void DebugDisplay::draw( GraphicsBuffer* pBuffer )
 	string toDisplay = mpContent->getDebugString();
 	al_draw_text( mpFont, al_map_rgb( 255, 255, 255 ), mPos.getX(), mPos.getY(), ALLEGRO_ALIGN_LEFT, toDisplay.c_str() );
 
+}
+
+void DebugDisplay::changePathfinderData(GridPathfinder* pPathfinder)
+{
+	mpContent->setPathfinder(pPathfinder);
 }

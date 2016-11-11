@@ -17,9 +17,14 @@ string PathfindingDebugContent::getDebugString()
 #ifdef VISUALIZE_PATH
 	theStream << "Pathlength:"<< mpPathfinder->mShortestPath.getNumNodes();
 	
-	theStream << "  Num Nodes Processed:" << mpPathfinder->mVisitedNodes.size();
+	theStream << "  Num Nodes Processed:" << mpPathfinder->mPath.getNumNodes();
 #endif
 	theStream << "  Elapsed Time:" << mpPathfinder->mTimeElapsed;
 	return theStream.str();
+}
+
+void PathfindingDebugContent::setPathfinder(GridPathfinder* pPathfinder)
+{
+	mpPathfinder = pPathfinder;
 }
 
