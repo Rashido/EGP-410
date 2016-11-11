@@ -41,7 +41,6 @@ const Path& Dijkstra::findPath(Node *pFrom, Node* pTo)
 
 	while (pCurrentNode != pTo && nodesToVisit.size() > 0)
 	{
-		mPath.clear();
 		//get current node from front of list
 		pCurrentNode = nodesToVisit.front();
 		//remove node from list

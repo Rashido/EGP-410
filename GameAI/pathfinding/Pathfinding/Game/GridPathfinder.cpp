@@ -2,9 +2,10 @@
 #include <allegro5/allegro_primitives.h>
 #include "GridPathfinder.h"
 #include "GridGraph.h"
+#include "Grid.h"
 #include "GridVisualizer.h"
 #include "Path.h"
-#include "Game.h"
+#include "GameApp.h"
 #include "GraphicsBuffer.h"
 
 GridPathfinder::GridPathfinder( GridGraph* pGraph )
@@ -58,10 +59,17 @@ void GridPathfinder::drawVisualization( Grid* pGrid, GraphicsBuffer* pDest )
 		mpVisualizer->addColor(mPath.peekNode(numNodes - 1)->getId(), stopColor);
 	}
 
-	//this handles drawing the centerlines between the nodes that make the shortest path
-	
-
-
 	mpVisualizer->draw(*pDest);
+
+	//this handles drawing the centerlines between the nodes that make the shortest path
+	float offset = gpGameApp->getGrid()->getSquareSize() / 2;
+
+	for (int i = 0; i < mShortestPath.getNumNodes() - 1; ++i)
+	{
+		Vector2D pos1 = gpGameApp->getGrid()->getULCornerOfSquare(mShortestPath.peekNode(i)->getId());
+		Vector2D pos2 = gpGameApp->getGrid()->getULCornerOfSquare(mShortestPath.peekNode(i + 1)->getId());
+
+		al_draw_line(pos1.getX() + offset, pos1.getY() + offset, pos2.getX() + offset, pos2.getY() + offset, al_map_rgb(255, 255, 255), 5);
+	}	
 }
 #endif
