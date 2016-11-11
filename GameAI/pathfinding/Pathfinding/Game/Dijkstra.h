@@ -4,8 +4,10 @@
 
 class Path;
 class Graph;
-class GraphicsBuffer;
-class Grid;
+
+/* An implementation of the Dijkstra algorithm. Heavily borrows of of 
+	DepthFirstPathfinder and makes modifications to allow nodes to retrace their
+	steps when the goal is eventually found.*/
 
 class Dijkstra :public GridPathfinder
 {

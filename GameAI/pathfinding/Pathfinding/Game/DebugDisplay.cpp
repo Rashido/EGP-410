@@ -27,6 +27,6 @@ DebugDisplay::~DebugDisplay()
 void DebugDisplay::draw( GraphicsBuffer* pBuffer )
 {
 	string toDisplay = mpContent->getDebugString();
-	al_draw_text( mpFont, al_map_rgb( 0, 0, 0 ), mPos.getX(), mPos.getY(), ALLEGRO_ALIGN_LEFT, toDisplay.c_str() );
+	al_draw_text( mpFont, al_map_rgb( 255, 255, 255 ), mPos.getX(), mPos.getY(), ALLEGRO_ALIGN_LEFT, toDisplay.c_str() );
 
 }

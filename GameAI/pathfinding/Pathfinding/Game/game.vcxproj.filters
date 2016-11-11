@@ -81,6 +81,9 @@
     <ClInclude Include="Dijkstra.h">
       <Filter>Header Files\pathfinding</Filter>
     </ClInclude>
+    <ClInclude Include="AStar.h">
+      <Filter>Header Files\pathfinding</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMessageManager.cpp">
@@ -135,6 +138,9 @@
       <Filter>Source Files\Messages</Filter>
     </ClCompile>
     <ClCompile Include="Dijkstra.cpp">
+      <Filter>Source Files\pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="AStar.cpp">
       <Filter>Source Files\pathfinding</Filter>
     </ClCompile>
   </ItemGroup>

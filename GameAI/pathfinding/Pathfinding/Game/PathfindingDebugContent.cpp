@@ -15,7 +15,7 @@ string PathfindingDebugContent::getDebugString()
 	stringstream theStream;
 
 #ifdef VISUALIZE_PATH
-	theStream << "Pathlength:"<< mpPathfinder->mPath.getNumNodes();
+	theStream << "Pathlength:"<< mpPathfinder->mShortestPath.getNumNodes();
 	
 	theStream << "  Num Nodes Processed:" << mpPathfinder->mVisitedNodes.size();
 #endif

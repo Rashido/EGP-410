@@ -21,6 +21,8 @@ public:
 	//just for visualization
 public:
 	void drawVisualization( Grid* pGrid, GraphicsBuffer* pDest );
+	void drawPathCenterLines();
+
 protected:
 	std::vector<Node*> mVisitedNodes;
 	GridVisualizer* mpVisualizer;

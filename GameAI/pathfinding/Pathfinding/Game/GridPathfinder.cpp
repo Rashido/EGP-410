@@ -61,15 +61,22 @@ void GridPathfinder::drawVisualization( Grid* pGrid, GraphicsBuffer* pDest )
 
 	mpVisualizer->draw(*pDest);
 
+	drawPathCenterLines(); //draw the shortest path
+}
+#endif
+
+#ifdef VISUALIZE_PATH
+void GridPathfinder::drawPathCenterLines()
+{
 	//this handles drawing the centerlines between the nodes that make the shortest path
 	float offset = gpGameApp->getGrid()->getSquareSize() / 2;
 
-	for (int i = 0; i < mShortestPath.getNumNodes() - 1; ++i)
+	for (int i = 0; i < mShortestPath.getNumNodes() - 1; ++i) //iterate through shortest path and draw lines in between each node
 	{
 		Vector2D pos1 = gpGameApp->getGrid()->getULCornerOfSquare(mShortestPath.peekNode(i)->getId());
 		Vector2D pos2 = gpGameApp->getGrid()->getULCornerOfSquare(mShortestPath.peekNode(i + 1)->getId());
 
-		al_draw_line(pos1.getX() + offset, pos1.getY() + offset, pos2.getX() + offset, pos2.getY() + offset, al_map_rgb(255, 255, 255), 5);
+		al_draw_line(pos1.getX() + offset, pos1.getY() + offset, pos2.getX() + offset, pos2.getY() + offset, al_map_rgb(0, 255, 255), 5);
 	}	
 }
 #endif

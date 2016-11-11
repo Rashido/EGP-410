@@ -14,7 +14,7 @@
 #include "GridGraph.h"
 #include "Connection.h"
 #include "Path.h"
-#include "DepthFirstPathfinder.h"
+#include "AStar.h"
 #include "Dijkstra.h"
 #include "Pathfinder.h"
 #include "GridPathfinder.h"
@@ -70,7 +70,7 @@ bool GameApp::init()
 	//init the nodes and connections
 	mpGridGraph->init();
 
-	mpPathfinder = new Dijkstra(mpGridGraph);
+	mpPathfinder = new AStar(mpGridGraph);
 
 	//load buffers
 	mpGraphicsBufferManager->loadBuffer( BACKGROUND_ID, "wallpaper.bmp");
