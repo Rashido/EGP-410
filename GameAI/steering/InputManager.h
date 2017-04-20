@@ -14,6 +14,8 @@ public:
 	void update();
 	void cleanUp();
 
+	bool gPressed;
+
 private:
 	//allegro member variables needed for taking in input and reading that input from the allegro event queue
 	ALLEGRO_EVENT mEvent;

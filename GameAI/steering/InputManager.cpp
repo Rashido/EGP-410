@@ -146,6 +146,15 @@ void InputManager::update()
 			{
 				gpGame->getStateManager()->saveData();
 			}
+
+			if (mEvent.keyboard.keycode == ALLEGRO_KEY_G)
+			{
+				gPressed = true;
+			}
+			else
+			{
+				gPressed = false;
+			}
 		}
 	}
 }

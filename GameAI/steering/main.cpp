@@ -20,6 +20,7 @@
 
 #include <sstream>
 #include <iostream>
+#include <fstream>
 #include <cstdlib>
 #include <ctime>
 #include <crtdbg.h>
@@ -29,6 +30,7 @@
 #include "GraphicsBuffer.h"
 #include "Sprite.h"
 #include "KinematicUnit.h"
+#include "InputManager.h"
 #include "Timer.h"
 #include "PerformanceTracker.h"
 #include "MemoryTracker.h"
@@ -36,6 +38,15 @@
 using namespace std;
 
 PerformanceTracker* gpPerformanceTracker = NULL;
+
+//computer science gross test stuff
+float totalTime = 0;
+float average;
+float amount = 0;
+
+float maxTime = 10000;
+bool timerOn = false;
+std::string fileName = "asm40BoidsTest3.txt";
 
 int main(int argc, char **argv)
 {
@@ -78,6 +89,26 @@ int main(int argc, char **argv)
 		gpPerformanceTracker->stopTracking("loop");
 		cout << "loop took:" << gpPerformanceTracker->getElapsedTime("loop") << "ms";
 		cout << "draw took:" << gpPerformanceTracker->getElapsedTime("draw") << "ms\n";
+
+		//test stuff I know its gross sorry :(
+		if (!timerOn && gpGame->getInputManager()->gPressed)
+			timerOn = true;
+
+		if (timerOn)
+		{
+			totalTime += gpPerformanceTracker->getElapsedTime("loop");
+			amount++;
+			
+			if (totalTime >= maxTime)
+			{
+				average = totalTime / amount;
+				std::ofstream fout(fileName);
+				fout << "The average frame rate for 10 seconds is " << average << std::endl;
+				fout.close();
+
+				timerOn = false;
+			}
+		}
 
 	}
 
